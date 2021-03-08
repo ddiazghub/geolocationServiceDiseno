@@ -1,0 +1,59 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>The HTML5 Herald</title>
+  <meta name="description" content="The HTML5 Herald">
+  <meta name="author" content="SitePoint">
+
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+   integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
+   crossorigin=""/>
+
+   <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
+   integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
+   crossorigin=""></script>
+
+   <style>
+       #mapid { height: 500px; }
+       #mapid { width: 800px; }
+   </style>
+</head>
+
+<body>
+
+    <h1>Servicio de Geolocalización Movil<h1>
+    <hr>
+    <div id="mapid"></div>
+
+    <script>
+
+        const myMap = L.map('mapid').setView([10.9578, -74.792], 12);
+
+        const attribution = '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors';
+
+        const tileUrl = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
+
+        const tiles = L.tileLayer(tileUrl,  { attribution }).addTo(myMap);
+        
+        const marker = L.marker([0, 0]).addTo(myMap);
+
+        getData();
+
+        setInterval(getData, 5000);
+
+        async function getData() {
+            const response = await fetch('loadData.txt');
+            let data = await response.text();
+            console.log(data);
+
+            data = data.split(' ')
+
+            marker.setLatLng([data[0], data[1]]);
+        }
+        
+    </script>
+</body>
+</html>

@@ -1,0 +1,14 @@
+{
+  "name": "geolocationservice2",
+  "version": "1.0.0",
+  "description": "Geolocation service on js",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "David Díaz",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
