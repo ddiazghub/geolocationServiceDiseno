@@ -17,8 +17,16 @@
    crossorigin=""></script>
 
    <style>
-       #mapid { height: 500px; }
+        
+       #mapid { height: 550px; }
        #mapid { width: 800px; }
+     
+
+       p{
+        font-size: 20px;  /*tamaÃ±o*/
+        
+        }
+
    </style>
 </head>
 
@@ -27,6 +35,14 @@
     <h1>Servicio de Geolocalización Movil<h1>
     <hr>
     <div id="mapid"></div>
+    
+    <p>
+        latitud: <span id="lat"></span><br>
+        longitud: <span id="lon"></span><br>
+        fecha: <span id="fecha"></span><br>
+        time: <span id="time"></span><br>
+    
+    </p>
 
     <script>
 
@@ -48,10 +64,18 @@
             const response = await fetch('loadData.txt');
             let data = await response.text();
             console.log(data);
-
+            
             data = data.split(' ')
 
             marker.setLatLng([data[0], data[1]]);
+
+            document.getElementById('lat').textContent = data[0];
+            document.getElementById('lon').textContent = data[1];
+            document.getElementById('fecha').textContent = data[2];
+            document.getElementById('time').textContent = data[3];
+
+
+
         }
         
     </script>
