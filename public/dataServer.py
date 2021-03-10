@@ -40,9 +40,9 @@ def start():
 
         if vehicleID == "efee70":
             lines[0] = messageList
-        elif vehicleID == "aaaaaa":
+        elif vehicleID == "487a8d":
             lines[1] = messageList
-        elif vehicleID == "bbbbbb":
+        elif vehicleID == "b7ea25":
             lines[2] = messageList
         else:
             print("Error")

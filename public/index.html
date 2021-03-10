@@ -19,7 +19,7 @@
    <style>
         
        #mapid { height: 550px; }
-       #mapid { width: 800px; }
+       #mapid { width: 100%; }
      
 
        p{
@@ -65,7 +65,9 @@
             let data = await response.text();
             console.log(data);
             
-            data = data.split(' ')
+            dataLines = data.split("\n")
+
+            data = dataLines[0].split(" ")
 
             marker.setLatLng([data[1], data[2]]);
 
