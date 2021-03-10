@@ -4,8 +4,6 @@ import struct
 from datetime import datetime, timezone
 import keyboard
 
-loadDataTxt = open("loadData.txt","w+")
-
 port = 50000
 server = socket.gethostbyname(socket.gethostname())
 address = (server, port)
@@ -18,19 +16,41 @@ def start():
     UDPSocket = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
     UDPSocket.bind(address)
     while True:
+        loadDataTxt = open("loadData.txt","r")
+
+        oldDataTxt = loadDataTxt.read()
+
+        loadDataTxt.close()
+
+        lines = oldDataTxt.split("\n")
+
         (messageBytes, incomingAddress) = UDPSocket.recvfrom(120)
-    
-        [latitude, longitude, timeStamp] = struct.unpack('>ffi', messageBytes)
+
+        vehicleID = messageBytes[:3].hex()
+
+        [latitude, longitude, timeStamp] = struct.unpack_from('>ffi', messageBytes, 3)
         dateAndTime = str(datetime.fromtimestamp(timeStamp))
+
+        messageList = [vehicleID, str(latitude), str(longitude), dateAndTime.split(" ")[0], dateAndTime.split(" ")[1]]
+
+        print("\nRecibido de " + incomingAddress[0] + ":" + str(incomingAddress[1]) + ":\n")
+        print("ID: " + messageList[0] + ", Latitud: " + messageList[1] + ", Longitud: " + messageList[2] + ", Fecha: " + messageList[3] + ", Hora: " + messageList[4])
+        
+        messageList = " ".join(messageList)
+
+        if vehicleID == "efee70":
+            lines[0] = messageList
+        elif vehicleID == "aaaaaa":
+            lines[1] = messageList
+        elif vehicleID == "bbbbbb":
+            lines[2] = messageList
+        else:
+            print("Error")
+
+        newDataTxt = "\n".join(lines)
 
         loadDataTxt = open("loadData.txt","w")
 
-        messageList = [str(latitude), str(longitude), dateAndTime.split(" ")[0], dateAndTime.split(" ")[1]]
-
-        print("\nRecibido de " + incomingAddress[0] + ":" + str(incomingAddress[1]) + ":\n")
-        print("Latitud: " + messageList[0] + ", Longitud: " + messageList[1] + ", Fecha: " + messageList[2] + ", Hora: " + messageList[3])
-        
-        messageList = " ".join(messageList)
-        loadDataTxt.write(messageList)
+        loadDataTxt.write(newDataTxt)
 
 start()
