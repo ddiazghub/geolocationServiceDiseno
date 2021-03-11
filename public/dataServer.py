@@ -11,7 +11,6 @@ address = (server, port)
 print("\nEl servidor se iniciará en " + str(server) + ":" + str(port) + ". Presione enter para iniciar.")
 keyboard.wait('enter')
 
-
 def start():
     print("\nEl servidor ha iniciado.")
 
