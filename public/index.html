@@ -1,16 +1,13 @@
 <!doctype html>
 
 <html lang="en">
-
-<!--Encabezado HTML-->
 <head>
   <meta charset="utf-8">
 
-  <title>My Car Locationd</title>
-  <meta name="description" content="My Car Locationd">
+  <title>The HTML5 Herald</title>
+  <meta name="description" content="The HTML5 Herald">
   <meta name="author" content="SitePoint">
 
-   <!--Se importa la API Leaflet--> 
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
    integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
    crossorigin=""/>
@@ -19,7 +16,6 @@
    integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
    crossorigin=""></script>
 
-    <!--Se ajustan dimensiones del mapa-->
    <style>
         
        #mapid { height: 550px; }
@@ -35,7 +31,6 @@
 
    </style>
 
-    <!--Estilo de la tabla-->
     <style type="text/css">
         .tg  {border-collapse:collapse;border-spacing:0;}
         .tg td{border-color:black;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;
@@ -49,13 +44,8 @@
 
 <body>
 
-<<<<<<< HEAD
     <h1>MY CAR LOCATION<h1>
     <h1>Servicio de Geolocalización Móvil<h1>
-=======
-    <!--Formato del cuerpo de la página-->
-    <h1>Servicio de Geolocalización Movil<h1>
->>>>>>> 777415463567e3f148eb52acc896cd7912767cfa
     <hr>
     <div id="mapid"></div>
 
@@ -97,19 +87,14 @@
 
     <script>
 
-        //Se crea una variable ara ajustar los límites del mapa solo una vez
-        let boundsSet = false;
+        let boundsSet = false; 
 
-        //Se crea el bloque del mapa
         const myMap = L.map('mapid').setView([10.9578, -74.792], 12);
 
-        //Se dan créditos a OpenStreetMap por las tiles del mapa
         const attribution = '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors';
 
-        //Se escribe el URL del servidor que contiene las tiles
         const tileUrl = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
 
-        //Se añaden las tiles al cuadro del mapa
         const tiles = L.tileLayer(tileUrl,  { attribution }).addTo(myMap);
         
         const greenIcon = new L.Icon({
@@ -130,32 +115,25 @@
             shadowSize: [41, 41]
         });
 
-        //Se añaden marcadores de posición al mapa
         const marker_1 = L.marker([0, 0]).addTo(myMap);
         const marker_2 = L.marker([0, 0], {icon: greenIcon}).addTo(myMap);
         const marker_3 = L.marker([0, 0], {icon: redIcon}).addTo(myMap);
 
-        //Se llama la función para actualizar datos cada 5 segundos
         getData();
 
         setInterval(getData, 5000);
 
         async function getData() {
 
-            //Se ejecuta un fetch para solicitar acceder al contenido del archivo de texto
             const response = await fetch('loadData.txt');
-            //Se espera a obtener los contenidos del .txt
             let data = await response.text();
             
-            //Se separa la string obtenida del .txt por líneas y por palabras
             data = splitIncomingData(data);
 
-            //Se actualizan los marcadores de posición con la nueva información obtenida, se actualiza la tabla también
             updateMarkersAndText(data);
 
         }
 
-        //Se actualizan los marcadores de posición con la nueva información obtenida, se actualiza la tabla también
         function updateMarkersAndText(data) {
             marker_1.setLatLng([data[0][1], data[0][2]]);
             marker_2.setLatLng([data[1][1], data[1][2]]);
@@ -163,7 +141,7 @@
             
             marker_1.bindPopup("Placa: EFE-070").openPopup();
             marker_2.bindPopup("Placa: ABC-425").openPopup();
-            marker_3.bindPopup("Placa: BTE-425").openPopup();
+            marker_1.bindPopup("Placa: BTE-425").openPopup();
 
             if (!boundsSet) {
                 const group = new L.featureGroup([marker_1, marker_2, marker_3]);
@@ -189,11 +167,9 @@
 
         function splitIncomingData(data) {
 
-            //Se separa la información por líneas
             const dataLines = data.split("\n")
             const dataSplit = ["", "", ""]
             for (const lines in dataLines) {
-                //Se separa la información por espacios
                 dataSplit[lines] = dataLines[lines].split(" ");
             }
             return dataSplit;
