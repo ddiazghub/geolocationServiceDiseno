@@ -1,6 +1,6 @@
 import socket
 import struct
-from datetime import datetime, timezone
+from datetime import datetime
 import keyboard
 
 #Se obtiene dirección IP local y se define el puerto para el socket

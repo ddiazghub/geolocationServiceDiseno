@@ -48,7 +48,7 @@
     <hr>
     <div id="mapid"></div>
 
-    <div id="table"></div>
+    <div id="table" style="margin-top:30px"></div>
     <table class="tg">
         <thead>
           <tr>
@@ -76,15 +76,17 @@
           </tr>
           <tr>
             <td class="tg-0lax" id="plate3">BTE-425</td>
-            <td class="tg-0lax" id="latitude"></td>
-            <td class="tg-0lax" id="longitude"></td>
-            <td class="tg-0lax" id="date"></td>
-            <td class="tg-0lax" id="time"></td>
+            <td class="tg-0lax" id="latitude">10.992390086364746<</td>
+            <td class="tg-0lax" id="longitude">-74.80256652832031</td>
+            <td class="tg-0lax" id="date">2021-03-09</td>
+            <td class="tg-0lax" id="time">2021-03-09</td>
           </tr>
         </tbody>
     </table>
 
     <script>
+
+        let boundsSet = false; 
 
         const myMap = L.map('mapid').setView([10.9578, -74.792], 12);
 
@@ -121,18 +123,30 @@
         setInterval(getData, 5000);
 
         async function getData() {
+
             const response = await fetch('loadData.txt');
             let data = await response.text();
             
             data = splitIncomingData(data);
 
             updateMarkersAndText(data);
-            
-            //marker_1.setLatLng([data[0][1], data[0][2]]);
-            //marker_2.setLatLng([data[1][1], data[1][2]]);
-            //marker_3.setLatLng([data[2][1], data[2][2]]);
 
-            console.log(data);
+        }
+
+        function updateMarkersAndText(data) {
+            marker_1.setLatLng([data[0][1], data[0][2]]);
+            marker_2.setLatLng([data[1][1], data[1][2]]);
+            marker_3.setLatLng([data[2][1], data[2][2]]);
+            
+            marker_1.bindPopup("Placa: EFE-070").openPopup();
+            marker_2.bindPopup("Placa: ABC-425").openPopup();
+            marker_1.bindPopup("Placa: BTE-425").openPopup();
+
+            if (!boundsSet) {
+                const group = new L.featureGroup([marker_1, marker_2, marker_3]);
+                myMap.fitBounds(group.getBounds().pad(0.5));
+                boundsSet = true;
+            }
 
             document.getElementById('lat').innerHTML = data[0][1];
             document.getElementById('lon').innerHTML = data[0][2];
@@ -148,18 +162,6 @@
             document.getElementById('longitude').textContent = data[2][2];
             document.getElementById('date').textContent = data[2][3];
             document.getElementById('time').textContent = data[2][4];
-
-        }
-
-        function updateMarkersAndText(data) {
-            marker_1.setLatLng([data[0][1], data[0][2]]);
-            marker_2.setLatLng([data[1][1], data[1][2]]);
-            marker_3.setLatLng([data[2][1], data[2][2]]);
-            
-            marker_1.bindPopup("Placa: EFE-070").openPopup();
-            marker_2.bindPopup("Placa: ABC-425").openPopup();
-            marker_1.bindPopup("Placa: BTE-425").openPopup();
-
         }
 
         function splitIncomingData(data) {
