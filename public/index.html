@@ -27,7 +27,19 @@
         
         }
 
+        table { width: 100%; }
+
    </style>
+
+    <style type="text/css">
+        .tg  {border-collapse:collapse;border-spacing:0;}
+        .tg td{border-color:black;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;
+        overflow:hidden;padding:10px 5px;word-break:normal;}
+        .tg th{border-color:black;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;
+        font-weight:normal;overflow:hidden;padding:10px 5px;word-break:normal;}
+        .tg .tg-0lax{text-align:left;vertical-align:top}
+    </style>
+
 </head>
 
 <body>
@@ -35,14 +47,42 @@
     <h1>Servicio de Geolocalización Movil<h1>
     <hr>
     <div id="mapid"></div>
-    
-    <p>
-        latitud: <span id="lat"></span><br>
-        longitud: <span id="lon"></span><br>
-        fecha: <span id="fecha"></span><br>
-        time: <span id="time"></span><br>
-    
-    </p>
+
+    <div id="table"></div>
+    <table class="tg">
+        <thead>
+          <tr>
+            <th class="tg-0lax">Placa</th>
+            <th class="tg-0lax">Latitud</th>
+            <th class="tg-0lax">Longitud</th>
+            <th class="tg-0lax">Fecha</th>
+            <th class="tg-0lax">Hora</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="tg-0lax" id="plate1">EFE-070</td>
+            <td class="tg-0lax" id="lat">10.992390086364746</td>
+            <td class="tg-0lax" id="lon">-74.80256652832031</td>
+            <td class="tg-0lax" id="fec">2021-03-09</td>
+            <td class="tg-0lax" id="hor">19:05:11</td>
+          </tr>
+          <tr>
+            <td class="tg-0lax" id="plate2">ABC-425</td>
+            <td class="tg-0lax" id="latitud">10.992390086364746</td>
+            <td class="tg-0lax" id="longitud">-74.80256652832031</td>
+            <td class="tg-0lax" id="fecha">2021-03-09</td>
+            <td class="tg-0lax" id="hora">19:05:11</td>
+          </tr>
+          <tr>
+            <td class="tg-0lax" id="plate3">BTE-425</td>
+            <td class="tg-0lax" id="latitude"></td>
+            <td class="tg-0lax" id="longitude"></td>
+            <td class="tg-0lax" id="date"></td>
+            <td class="tg-0lax" id="time"></td>
+          </tr>
+        </tbody>
+    </table>
 
     <script>
 
@@ -54,7 +94,27 @@
 
         const tiles = L.tileLayer(tileUrl,  { attribution }).addTo(myMap);
         
-        const marker = L.marker([0, 0]).addTo(myMap);
+        const greenIcon = new L.Icon({
+            iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-green.png',
+            shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+            iconSize: [25, 41],
+            iconAnchor: [12, 41],
+            popupAnchor: [1, -34],
+            shadowSize: [41, 41]
+        });
+
+        var redIcon = new L.Icon({
+            iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png',
+            shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+            iconSize: [25, 41],
+            iconAnchor: [12, 41],
+            popupAnchor: [1, -34],
+            shadowSize: [41, 41]
+        });
+
+        const marker_1 = L.marker([0, 0]).addTo(myMap);
+        const marker_2 = L.marker([0, 0], {icon: greenIcon}).addTo(myMap);
+        const marker_3 = L.marker([0, 0], {icon: redIcon}).addTo(myMap);
 
         getData();
 
@@ -63,20 +123,53 @@
         async function getData() {
             const response = await fetch('loadData.txt');
             let data = await response.text();
-            console.log(data);
             
-            dataLines = data.split("\n")
+            data = splitIncomingData(data);
 
-            data = dataLines[0].split(" ")
+            updateMarkersAndText(data);
+            
+            //marker_1.setLatLng([data[0][1], data[0][2]]);
+            //marker_2.setLatLng([data[1][1], data[1][2]]);
+            //marker_3.setLatLng([data[2][1], data[2][2]]);
 
-            marker.setLatLng([data[1], data[2]]);
+            console.log(data);
 
-            document.getElementById('lat').textContent = data[1];
-            document.getElementById('lon').textContent = data[2];
-            document.getElementById('fecha').textContent = data[3];
-            document.getElementById('time').textContent = data[4];
+            document.getElementById('lat').innerHTML = data[0][1];
+            document.getElementById('lon').innerHTML = data[0][2];
+            document.getElementById('fec').innerHTML = data[0][3];
+            document.getElementById('hor').innerHTML = data[0][4];
 
+            document.getElementById('latitud').innerHTML = data[1][1];
+            document.getElementById('longitud').innerHTML = data[1][2];
+            document.getElementById('fecha').innerHTML = data[1][3];
+            document.getElementById('hora').textContent = data[1][4];
 
+            document.getElementById('latitude').textContent = data[2][1];
+            document.getElementById('longitude').textContent = data[2][2];
+            document.getElementById('date').textContent = data[2][3];
+            document.getElementById('time').textContent = data[2][4];
+
+        }
+
+        function updateMarkersAndText(data) {
+            marker_1.setLatLng([data[0][1], data[0][2]]);
+            marker_2.setLatLng([data[1][1], data[1][2]]);
+            marker_3.setLatLng([data[2][1], data[2][2]]);
+            
+            marker_1.bindPopup("Placa: EFE-070").openPopup();
+            marker_2.bindPopup("Placa: ABC-425").openPopup();
+            marker_1.bindPopup("Placa: BTE-425").openPopup();
+
+        }
+
+        function splitIncomingData(data) {
+
+            const dataLines = data.split("\n")
+            const dataSplit = ["", "", ""]
+            for (const lines in dataLines) {
+                dataSplit[lines] = dataLines[lines].split(" ");
+            }
+            return dataSplit;
 
         }
         
