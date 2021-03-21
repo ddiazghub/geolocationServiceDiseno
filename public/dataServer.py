@@ -29,6 +29,7 @@ def start():
         #Se reciben packetes y se guardan los bytes.
         (messageBytes, incomingAddress) = UDPSocket.recvfrom(120)
 
+        print(UDPSocket.recv(120))
         #Se toman solo los 3 primeros bytes, los cuales son el ID del vehículo.
         vehicleID = messageBytes[:3].hex()
 
