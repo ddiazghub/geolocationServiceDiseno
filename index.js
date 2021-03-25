@@ -30,7 +30,7 @@ app.get("/vehicles", async(req, res) => {
 
 //get a vehicle
 
-app.get("/vehicles/:id", async(req, res) => {
+/*app.get("/vehicles/:id", async(req, res) => {
     try {
         const { id } = req.params;
         const vehicle = await pool.query("SELECT * FROM todo WHERE id = $1", {id});
@@ -38,7 +38,7 @@ app.get("/vehicles/:id", async(req, res) => {
     } catch (err) {
         console.error(err.message);
     }
-});
+});*/
 
 //update a vehicle
 
