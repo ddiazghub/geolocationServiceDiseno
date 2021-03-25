@@ -60,4 +60,8 @@ app.get("/vehicles", async(req, res) => {
     }
 })*/
 
-app.listen(50001, () => console.log('Servidor web operando en el puerto 50001'));
+<<<<<<< HEAD
+app.listen(5000, () => console.log('Servidor web operando en el puerto 50001, redirijido al puerto 80 para la ip pública'));
+=======
+app.listen(50001, () => console.log('Servidor web operando en el puerto 50001, redirijido al puerto 80 para la ip pública'));
+>>>>>>> 79e13c274d0db232381a8c9e353af4c2eea3c748
