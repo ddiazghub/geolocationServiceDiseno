@@ -37,9 +37,9 @@ const GetVehicles = () => {
       
       {vehicles.map(vehicle => (
         <tr>
-          <td>{vehicle.id}</th>
+          <td>{vehicle.id}</td>
           <td>{vehicle.latitude}</td>
-          <td>{vehicle.longitude}</th>
+          <td>{vehicle.longitude}</td>
           <td>{vehicle.time}</td>
           <td>{vehicle.date}</td>
         </tr>
