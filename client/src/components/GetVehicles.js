@@ -9,7 +9,6 @@ const GetVehicles = () => {
             const response = await fetch("http://34.221.26.86:50001/vehicles");
             const jsonData = await response.json();
 
-            console.log(jsonData);
             setVehicles(jsonData);
         } catch (err) {
             console.error(err.message);
