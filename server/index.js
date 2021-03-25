@@ -61,4 +61,3 @@ app.get("/vehicles", async(req, res) => {
 })*/
 
 app.listen(50001, () => console.log('Servidor web operando en el puerto 50001, redirijido al puerto 80 para la ip pública'));
-app.use(express.static('public'));
