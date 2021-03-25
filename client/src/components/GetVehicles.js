@@ -1,5 +1,10 @@
 import React, { Fragment, useEffect, useState } from "react";
+import Leaflet from 'leaflet';
 import { MapContainer, TileLayer, Marker, Popup, useMapEvents,  } from 'react-leaflet'
+import 'leaflet/dist/leaflet.css';
+
+Leaflet.Icon.Default.imagePath =
+'../node_modules/leaflet'
 
 const GetVehicles = () => {
 
@@ -27,14 +32,17 @@ const GetVehicles = () => {
 
     return (<Fragment>
       
-      <MapContainer
-        center={{ lat: 10.9578, lng: -74.792 }}
-        zoom={12}>
-      <TileLayer
-        attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"/>
-      <LocationMarker />
-      </MapContainer>,
+       <MapContainer center={[51.505, -0.09]} zoom={13} scrollWheelZoom={false}>
+  <TileLayer
+    attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+    url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+  />
+  <Marker position={[51.505, -0.09]}>
+    <Popup>
+      A pretty CSS3 popup. <br /> Easily customizable.
+    </Popup>
+  </Marker>
+</MapContainer>
 
       <table class="table">
         <thead class="thead-dark">
