@@ -27,16 +27,19 @@ def start():
             messageList = receiveData(UDPSocket)
 
             #Se modifica la base de datos con los nuevos datos recibidos.
-            SQL = "UPDATE vehicle SET latitude = %(latitude)s, longitude = %(longitude)s, date = %(date)s, time = %(time)s WHERE id = %(id)s;"
-            dbcursor.execute(SQL, {'id':messageList[0], 'latitude':messageList[1], 'longitude':messageList[2], 'date':messageList[3], 'time':messageList[4]})
+            SQL = "UPDATE vehicle SET latitude = %(latitude)s, longitude = %(longitude)s, tstamp = %(tstamp)s WHERE id = %(id)s;"
+            SQL_2 = "INSERT INTO %(id)s (tstamp, latitude, longitude) values (%(tstamp)s, %(latitude)s, %(longitude)s);"
+            dbcursor.execute(SQL, {'id':messageList[0], 'latitude':messageList[1], 'longitude':messageList[2], 'tstamp':messageList[3]})
+            dbcursor.execute(SQL_2, {'tstamp':messageList[3], 'latitude':messageList[1], 'longitude':messageList[2]})
             dbconnection.commit()
+
     except:
 
         UDPSocket.close()
         dbconnection.close()
         
         answer = input("\nHa ocurrido un error. ¿Reiniciar? (S/N): ")
-        
+
         yes = answer == "S";
         no = answer == "N";
 
@@ -65,7 +68,7 @@ def startConnections(address):
     UDPSocket = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
     UDPSocket.bind(address)
     dbconnection = psycopg2.connect(
-        database = "test",
+        database = "locationdata",
         host = os.environ["DB_HOST"],
         port = os.environ["DB_PORT"],
         user = os.environ["DB_USERNAME"],
@@ -77,12 +80,12 @@ def startConnections(address):
 def receiveData(UDPSocket):
     (messageBytes, incomingAddress) = UDPSocket.recvfrom(120)
     vehicleID = messageBytes[:3].hex()
-    [latitude, longitude, timeStamp] = struct.unpack_from('>ffi', messageBytes, 3)
-    dateAndTime = str(datetime.fromtimestamp(timeStamp))
-    messageList = [vehicleID, latitude, longitude, dateAndTime.split(" ")[0], dateAndTime.split(" ")[1]]
+    [latitude, longitude, timestamp] = struct.unpack_from('>ffi', messageBytes, 3)
+    dateAndTime = str(datetime.fromtimestamp(timestamp)).split(" ")
+    messageList = [vehicleID, latitude, longitude, timestamp]
 
     print("\nRecibido de " + incomingAddress[0] + ":" + str(incomingAddress[1]) + ":\n")
-    print("ID: " + messageList[0] + ", Latitud: " + str(messageList[1]) + ", Longitud: " + str(messageList[2]) + ", Fecha: " + messageList[3] + ", Hora: " + messageList[4])
+    print("ID: " + messageList[0] + ", Latitud: " + str(messageList[1]) + ", Longitud: " + str(messageList[2]) + ", Fecha: " + dateAndTime[0] + ", Hora: " + dateAndTime[1])
     return messageList
 
 #Se da la cuenta para iniciar el servidor
