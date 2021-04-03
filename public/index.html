@@ -139,39 +139,34 @@
         }
 
         function updateMarkersAndText(data) {
-        
+
+            document.getElementById('lat').innerHTML = vehicles[0].latitude;
+            document.getElementById('lon').innerHTML = vehicles[0].longitude;
+            document.getElementById('fec').innerHTML = vehicles[0].date;
+            document.getElementById('hor').innerHTML = vehicles[0].time;
+            marker_1.setLatLng([vehicles[0].latitude, vehicles[0].longitude]);
+            marker_1.bindPopup("Placa: EFE-070").openPopup();
+
+            document.getElementById('latitud').innerHTML = vehicles[1].latitude;
+            document.getElementById('longitud').innerHTML = vehicles[1].longitude;
+            document.getElementById('fecha').innerHTML = vehicles[1].date;
+            document.getElementById('hora').textContent = vehicles[1].time;
+            marker_2.setLatLng([vehicles[1].latitude, vehicles[1].longitude]);
+            marker_2.bindPopup("Placa: ABC-425").openPopup();
+
+            document.getElementById('latitude').textContent = vehicles[2].latitude;
+            document.getElementById('longitude').textContent = vehicles[2].longitude;
+            document.getElementById('date').textContent = vehicles[2].date;
+            document.getElementById('time').textContent = vehicles[2].time;
+            marker_3.setLatLng([vehicles[2].latitude, vehicles[2].longitude]);
+            marker_3.bindPopup("Placa: BTE-425").openPopup();
+
             if (!boundsSet) {
               const group = new L.featureGroup([marker_1, marker_2, marker_3]);
               myMap.fitBounds(group.getBounds().pad(0.5));
               boundsSet = true;
             }
 
-            for (var i = 0; i < 3; i++) {
-              if (vehicles[i].id == "efee70") {
-                document.getElementById('lat').innerHTML = vehicles[i].latitude;
-                document.getElementById('lon').innerHTML = vehicles[i].longitude;
-                document.getElementById('fec').innerHTML = vehicles[i].date;
-                document.getElementById('hor').innerHTML = vehicles[i].time;
-                marker_1.setLatLng([vehicles[i].latitude, vehicles[i].longitude]);
-                marker_1.bindPopup("Placa: EFE-070").openPopup();
-              }
-              if (vehicles[i].id == "b7ea25") {
-                document.getElementById('latitud').innerHTML = vehicles[i].latitude;
-                document.getElementById('longitud').innerHTML = vehicles[i].longitude;
-                document.getElementById('fecha').innerHTML = vehicles[i].date;
-                document.getElementById('hora').textContent = vehicles[i].time;
-                marker_2.setLatLng([vehicles[i].latitude, vehicles[i].longitude]);
-                marker_2.bindPopup("Placa: ABC-425").openPopup();
-              } 
-              if (vehicles[i].id == "487a8d") {
-                document.getElementById('latitude').textContent = vehicles[i].latitude;
-                document.getElementById('longitude').textContent = vehicles[i].longitude;
-                document.getElementById('date').textContent = vehicles[i].date;
-                document.getElementById('time').textContent = vehicles[i].time;
-                marker_3.setLatLng([vehicles[i].latitude, vehicles[i].longitude]);
-                marker_3.bindPopup("Placa: BTE-425").openPopup();
-              }
-            }
         }
 
         function splitIncomingData(data) {

@@ -22,7 +22,7 @@ app.use(express.json());
 
 app.get("/vehicles", async(req, res) => {
     try {
-        const allVehicles = await pool.query("SELECT * FROM vehicle");
+        const allVehicles = await pool.query("SELECT * FROM vehicle ORDER BY id ASC");
         res.json(allVehicles.rows);
     } catch (err) {
         console.error(err.message);
