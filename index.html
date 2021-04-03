@@ -134,9 +134,9 @@
             const jsonData = await response.json();
             
             vehicles = jsonData;
-console.log(vehicles);            
-updateMarkersAndText(vehicles);
-            }
+            console.log(vehicles);            
+            updateMarkersAndText(vehicles);
+        }
 
         function updateMarkersAndText(data) {
             marker_1.setLatLng([vehicles[0].latitude, vehicles[0].longitude]);
