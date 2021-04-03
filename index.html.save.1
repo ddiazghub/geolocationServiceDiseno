@@ -12,19 +12,19 @@
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
    integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
    crossorigin=""/>
-  <link rel="stylesheet" href="leaflet-routing-machine.css" />  
+  <link rel="stylesheet" href="css/TripgoRouting.css" />  
    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
    integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
    crossorigin=""></script>
+   <script src="dist/TripgoRouting.js"></script>
    <script src="lib/jquery-3.2.1.js"></script>
-   <script src="leaflet-routing-machine.js"></script>
    <script src="lib/Polyline-encoded.js"></script>
    <script src="http://maxcdn.bootstrapcdn.com/bottstrap/4.3.1/js/bootstrap.min.js"></script>
    <style>
         
        #mapid { height: 550px; }
        #mapid { width: 100%; }
-       #mapid { position: absolute; }
+       #mapid { position: relative;}
 
        p{
         font-size: 20px;  /*tamaÃ±o*/
@@ -50,7 +50,7 @@
     <nav class="navbar navbar-dark bg dark">
       <div class="container">
         <h1 style="color: green">MY CAR LOCATION</h1> 
-        <div class="well">Sistema de Geolocalización móvil</div> 
+        <div class="well">Sistema de Geolocazación móvil</div> 
       </div>
 
     </nav>
@@ -105,15 +105,7 @@
         const tileUrl = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
 
         const tiles = L.tileLayer(tileUrl,  { attribution }).addTo(myMap);
-
-        L.Routing.control({
-	 waypoints: [null],
-	 routeWhileDragging: true
-	 lineOptions:{
-	 styles: [{color: 'green', opacity: 1, wieght: 5}]
-	},
-	}).addTo(map);
-
+        
         const greenIcon = new L.Icon({
             iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-green.png',
             shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
@@ -123,7 +115,7 @@
             shadowSize: [41, 41]
         });
 
-        const redIcon = new L.Icon({
+        var redIcon = new L.Icon({
             iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png',
             shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
             iconSize: [25, 41],
