@@ -5,11 +5,13 @@ import os
 import psycopg2
 import sys
 import time
+import logging
 
 #Se obtiene dirección IP local y se define el puerto para el socket
 port = 50000
 server = socket.gethostbyname(socket.gethostname())
 address = (server, port)
+logger = logging.Logger('catch_all')
 
 print("\n")
 
@@ -31,8 +33,9 @@ def start():
             dbcursor.execute(SQL, {'id':messageList[0], 'latitude':messageList[1], 'longitude':messageList[2], 'tstamp':messageList[3]})
             dbconnection.commit()
 
-    except:
+    except BaseException as e:
 
+        logger.error(str(e))
         UDPSocket.close()
         dbconnection.close()
         
