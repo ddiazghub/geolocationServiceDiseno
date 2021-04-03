@@ -3,6 +3,7 @@ import struct
 from datetime import datetime
 import os
 import psycopg2
+from psycopg2 import sql
 import sys
 import time
 import logging
@@ -29,8 +30,9 @@ def start():
             messageList = receiveData(UDPSocket)
 
             #Se modifica la base de datos con los nuevos datos recibidos.
-            SQL = "UPDATE vehicle SET latitude = %(latitude)s, longitude = %(longitude)s, tstamp = %(tstamp)s WHERE id = %(id)s; \nINSERT INTO %(id)s (tstamp, latitude, longitude) values (%(tstamp)s, %(latitude)s, %(longitude)s);"
+            SQL = "UPDATE vehicle SET latitude = %(latitude)s, longitude = %(longitude)s, tstamp = %(tstamp)s WHERE id = %(id)s;"
             dbcursor.execute(SQL, {'id':messageList[0], 'latitude':messageList[1], 'longitude':messageList[2], 'tstamp':messageList[3]})
+            dbcursor.execute(sql.SQL("INSERT INTO {} (tstamp, latitude, longitude) values (%s, %s, %s);").format(sql.Identifier(messageList[0])),[messageList[1], messageList[2], messageList[3]])
             dbconnection.commit()
 
     except BaseException as e:
