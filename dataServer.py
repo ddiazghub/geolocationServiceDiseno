@@ -80,7 +80,7 @@ def startConnections(address):
 
 def receiveData(UDPSocket):
     (messageBytes, incomingAddress) = UDPSocket.recvfrom(120)
-    vehicleID = "\"" + messageBytes[:3].hex() + "\""
+    vehicleID = str(messageBytes[:3].hex()).replace("'", '"')
     [latitude, longitude, timestamp] = struct.unpack_from('>ffi', messageBytes, 3)
     dateAndTime = str(datetime.fromtimestamp(timestamp)).split(" ")
     messageList = [vehicleID, latitude, longitude, timestamp]
