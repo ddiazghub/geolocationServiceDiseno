@@ -38,9 +38,7 @@ app.get("/vehicles/:id/:start/:end", async(req, res) => {
         const end = req.params.end;
         const sql = `SELECT * FROM ${id} WHERE tstamp BETWEEN ${start} AND ${end}`;
         const vehicle = await pool.query(sql);
-        console.log(vehicle.rows);
-        console.log(vehicle.rows[0]);
-        res.json(vehicle.rows[0]);
+        res.json(vehicle.rows);
     } catch (err) {
         console.error(err.message);
     }
