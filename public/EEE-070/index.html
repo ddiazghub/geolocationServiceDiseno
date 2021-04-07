@@ -42,7 +42,7 @@
 
     <!-- Include this library for mobile touch support  -->
     <script src="http://cdnjs.cloudflare.com/ajax/libs/jqueryui-touch-punch/0.2.2/jquery.ui.touch-punch.min.js"></script>
-    
+
     <style>
       body {
         margin: 0;
@@ -353,8 +353,7 @@
       async function getData() {
         console.log(initialTimeStamp);
         console.log(endingTimeStamp);
-        let url = "http://34.221.26.86:50001/vehicles/efee70/"
-        url = url.concat(initialTimeStamp.toString).concat("/").concat(endingTimeStamp.toString);
+        const url = "http://34.221.26.86:50001/vehicles/efee70/" + initialTimeStamp + "/" + endingTimeStamp;
         const response = await fetch(url);
         const jsonData = await response.json();
         vehicles = jsonData;
@@ -416,11 +415,6 @@
           myMap.fitBounds(group.getBounds().pad(0.5));
           boundsSet = true;
         }
-      }
-
-      function toTimestamp(strDate) {
-        var datum = Date.parse(strDate);
-        return datum / 1000;
       }
 
       function splitIncomingData(data) {
