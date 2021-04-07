@@ -2,6 +2,7 @@ const express = require('express');
 const cors = require('cors');
 const pool = require('./db')
 const path = require('path');
+const escape = require('pg-escape');
 const app = express();
 
 
@@ -36,9 +37,8 @@ app.get("/vehicles/:id/:start/:end", async(req, res) => {
         const { id } = req.params.id;
         const { start } = req.params.start;
         const { end } = req.params.end;
-        const sql = "SELECT * FROM $1 WHERE tstamp BETWEEN %2 AND $3";
-        const values = [{ id }, { start }, { end }];
-        const vehicle = await pool.query(sql, values);
+        const sql = escape('SELECT * FROM I% WHERE tstamp BETWEEN %L AND %L', { id }, { start }, { end } );
+        const vehicle = await pool.query(sql);
         res.json(vehicle.rows[0]);
     } catch (err) {
         console.error(err.message);
