@@ -1,6 +1,0 @@
-{
-    "name": "leaflet-slider",
-    "homepage": "https://github.com/Falke-Design/LeafletSlider",
-    "version": "2.0.0",
-    "main": "dist/leaflet.SliderControl.min.js"
-}

@@ -73,12 +73,12 @@
       </li>
       <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          Dropdown link
+          Ubicación histórica
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-          <a class="dropdown-item" href="#">Action</a>
-          <a class="dropdown-item" href="#">Another action</a>
-          <a class="dropdown-item" href="#">Something else here</a>
+          <a class="dropdown-item" href="http://localhost:50001/EEE-070/">EFE-070</a>
+          <a class="dropdown-item" href="http://localhost:50001/ABC-425/">ABC-425</a>
+          <a class="dropdown-item" href="http://localhost:50001/BTE-425/">BTE-425</a>
         </div>
       </li>
     </ul>
@@ -164,7 +164,7 @@
 
         async function getData() {
 
-            const response = await fetch('http://34.221.26.86:50001/vehicles');
+            const response = await fetch('http://34.221.26.86:50001/vehicles/');
             const jsonData = await response.json();
             
             vehicles = jsonData;
