@@ -355,7 +355,7 @@
         console.log(dateEnteredEnd); //e.g. Fri Nov 13 2015 00:00:00 GMT+0000 (GMT Standard Time)
       });
 
-      function updateMarkersAndText(data) {
+      function updateMarkersAndText(vehicle) {
         
         marker_1.setLatLng([vehicle[0].latitude, vehicle[0].longitude]);
         marker_1.bindPopup("Placa: EFE-070").openPopup();
