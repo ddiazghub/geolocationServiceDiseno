@@ -87,6 +87,20 @@
 
     <div id="mapid"></div>
 
+	<script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+	<script src="http://cdn.leafletjs.com/leaflet-0.7/leaflet.js"></script>
+	<script src="src/utils/LineUtil.Snapping.js"></script>
+	<script src="src/utils/Marker.Snapping.js"></script>
+	<script src="src/L.Routing.js"></script>
+	<script src="src/L.Routing.Storage.js"></script>
+	<script src="src/L.Routing.Draw.js"></script>
+	<script src="src/L.Routing.Edit.js"></script>
+	<script src="http://twitter.github.io/typeahead.js/releases/0.9.3/typeahead.min.js"></script>	
+	<script src="app.js"></script>
+
+
+
+
     <div id="table" style="margin-top:30px"></div>
     <table class="table">
         <thead class="thead-dark">
@@ -153,6 +167,42 @@
             popupAnchor: [1, -34],
             shadowSize: [41, 41]
         });
+
+	
+	var routing = new L.Routing({
+  	    position: 'topright'
+  	    ,routing: {
+	    router: myRouterFunction
+	  }
+	  ,tooltips: {
+	    waypoint: 'Waypoint. Drag to move; Click to remove.',
+	    segment: 'Drag to create a new waypoint'
+	  }
+	  ,styles: {     // see http://leafletjs.com/reference.html#polyline-options
+	    trailer: {}  // drawing line
+	    ,track: {}   // calculated route result
+	    ,nodata: {}  // line when no result (error)
+	  }
+	  ,snapping: {
+	    layers: [mySnappingLayer]
+	    ,sensitivity: 15
+	    ,vertexonly: false
+	  }
+	  ,shortcut: {
+	    draw: {
+	      enable: 68    // 'd'
+	      ,disable: 81  // 'q'
+	    }
+	  }
+	});
+	map.addControl(routing);
+
+	routing.draw(true)
+	routing.rerouteAllSegments(callback);
+
+
+
+
 
         const marker_1 = L.marker([0, 0]).addTo(myMap);
         const marker_2 = L.marker([0, 0], {icon: greenIcon}).addTo(myMap);
