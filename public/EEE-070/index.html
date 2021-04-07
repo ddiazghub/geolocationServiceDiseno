@@ -269,6 +269,7 @@
       var slider = document.getElementById("myRange");
 
       var sliderOutput = slider.value;
+      let vehicle;
 
       let initialTimeStamp = 0;
       let endingTimeStamp = 0;
@@ -320,7 +321,7 @@
         console.log(url);
         const response = await fetch(url);
         const jsonData = await response.json();
-        const vehicle = jsonData;
+        vehicle = jsonData;
         const length = Object.keys(vehicle).length;
         document.getElementById("myRange").max = length
         document.getElementById("myRange").value = Math.floor(length / 2);
@@ -330,6 +331,21 @@
 
       slider.oninput = function() {
         sliderOutput = this.value;
+
+        marker_1.setLatLng([vehicle[0].latitude, vehicle[0].longitude]);
+        marker_1.bindPopup("Placa: EFE-070").openPopup();
+
+        marker_2.setLatLng([vehicle[sliderOutput].latitude, vehicle[sliderOutput].longitude]);
+        marker_2.bindPopup("Placa: ABC-425").openPopup();
+
+        marker_3.setLatLng([vehicle[length - 1].latitude, vehicle[length - 1].longitude]);
+        marker_3.bindPopup("Placa: BTE-425").openPopup();
+
+        if (!boundsSet) {
+          const group = new L.featureGroup([marker_1, marker_2, marker_3]);
+          myMap.fitBounds(group.getBounds().pad(0.5));
+          boundsSet = true;
+        }
       }
 
       document.getElementById("to").addEventListener("change", function () {
@@ -355,23 +371,6 @@
         console.log(dateEnteredEnd); //e.g. Fri Nov 13 2015 00:00:00 GMT+0000 (GMT Standard Time)
       });
 
-      function updateMarkersAndText(vehicle) {
-        
-        marker_1.setLatLng([vehicle[0].latitude, vehicle[0].longitude]);
-        marker_1.bindPopup("Placa: EFE-070").openPopup();
-
-        marker_2.setLatLng([vehicle[sliderOutput].latitude, vehicle[sliderOutput].longitude]);
-        marker_2.bindPopup("Placa: ABC-425").openPopup();
-
-        marker_3.setLatLng([vehicle[length - 1].latitude, vehicle[length - 1].longitude]);
-        marker_3.bindPopup("Placa: BTE-425").openPopup();
-
-        if (!boundsSet) {
-          const group = new L.featureGroup([marker_1, marker_2, marker_3]);
-          myMap.fitBounds(group.getBounds().pad(0.5));
-          boundsSet = true;
-        }
-      }
 
       function splitIncomingData(data) {
         const dataLines = data.split("\n");
