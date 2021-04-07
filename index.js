@@ -1,6 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 const pool = require('./db')
+const path = require('path');
 const app = express();
 
 
@@ -21,7 +22,7 @@ app.use(express.json());
 
 app.get("/vehicles", async(req, res) => {
     try {
-        const allVehicles = await pool.query("SELECT * FROM vehicle");
+        const allVehicles = await pool.query("SELECT * FROM vehicle ORDER BY id ASC");
         res.json(allVehicles.rows);
     } catch (err) {
         console.error(err.message);
@@ -61,4 +62,4 @@ app.get("/vehicles", async(req, res) => {
 })*/
 
 app.listen(50001, () => console.log('Servidor web operando en el puerto 50001'));
-app.use(express.static('.'));
+app.use(express.static(path.join(__dirname, 'public')));
