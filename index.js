@@ -36,12 +36,10 @@ app.get("/vehicles/:id/:start/:end", async(req, res) => {
         const id = req.params.id;
         const start = req.params.start;
         const end = req.params.end;
-        console.log(start);
-        console.log(end);
-        console.log(req.params);
         const sql = `SELECT * FROM ${id} WHERE tstamp BETWEEN ${start} AND ${end}`;
-        console.log(sql);
         const vehicle = await pool.query(sql);
+        console.log(vehicle);
+        console.log(vehicle.rows[0]);
         res.json(vehicle.rows[0]);
     } catch (err) {
         console.error(err.message);
