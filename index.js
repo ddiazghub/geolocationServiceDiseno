@@ -33,9 +33,11 @@ app.get("/vehicles", async(req, res) => {
 
 app.get("/vehicles/:id/:start/:end", async(req, res) => {
     try {
-        const { id } = req.params.id;
-        const { start } = req.params.start;
-        const { end } = req.params.end;
+        const id = req.params.id;
+        const start = req.params.start;
+        const end = req.params.end;
+        console.log(start);
+        console.log(end);
         console.log(req.params);
         const sql = escape(`SELECT * FROM ${id} WHERE tstamp BETWEEN ${start} AND ${end}`);
         console.log(sql);
