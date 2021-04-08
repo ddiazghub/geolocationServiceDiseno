@@ -248,7 +248,6 @@
       var slider = document.getElementById("myRange");
 
       var sliderOutput = slider.value;
-      let latlongs = [];
       let vehicle;
       let length;
       let dateSelection;
@@ -315,9 +314,11 @@
       slider.oninput = function() {
         sliderOutput = this.value;
 
+        let latLongs = [];
         vehicle.forEach(element => {
           latLongs.push([element.latitude, element.longitude]);
-        })
+        });
+
         tSelection = vehicle[sliderOutput].tstamp * 1000;
         dateSelection = new Date(tSelection);
         dateStart = new Date(vehicle[0].tstamp * 1000);
