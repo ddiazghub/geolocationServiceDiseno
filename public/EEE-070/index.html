@@ -230,7 +230,7 @@
       <div id="separator"></div>
       <div id="top-div"">
         <div class="slidecontainer">
-          <input type="range" min="1" max="100" value="50" class="slider" id="myRange">
+          <input type="range" min="0" max="100" value="0" class="slider" id="myRange">
         </div>
       </div>
     </div>
@@ -306,19 +306,26 @@
         const jsonData = await response.json();
         vehicle = jsonData;
         length = Object.keys(vehicle).length;
-        document.getElementById("myRange").max = length
-        document.getElementById("myRange").value = Math.floor(length / 2);
+        document.getElementById("myRange").max = length - 1;
         console.log(vehicle);
       }
 
       slider.oninput = function() {
         sliderOutput = this.value;
 
+        let latLongs = [];
+
         tSelection = vehicle[sliderOutput].tstamp * 1000;
         dateSelection = new Date(tSelection);
         dateStart = new Date(vehicle[0].tstamp * 1000);
         dateEnd = new Date(vehicle[length - 1].tstamp * 1000);
-        
+
+        vehicle.forEach(element => {
+            latLongs.push([element.latitude, element.longitude]);
+        });
+
+        var polyline = L.polyline(latLongs, {color: 'red'}).addTo(myMap);
+
         marker_1.setLatLng([vehicle[0].latitude, vehicle[0].longitude]);
         marker_1.bindPopup("Inicio " + dateStart.getDate()+
           "/"+(dateStart.getMonth()+1)+
@@ -342,12 +349,6 @@
           " "+dateEnd.getHours()+
           ":"+dateEnd.getMinutes()+
           ":"+dateEnd.getSeconds()).openPopup();
-
-        if (!boundsSet) {
-          const group = new L.featureGroup([marker_1, marker_2, marker_3]);
-          myMap.fitBounds(group.getBounds().pad(0.5));
-          boundsSet = true;
-        }
       }
 
       document.getElementById("to").addEventListener("change", function () {
