@@ -230,7 +230,7 @@
       <div id="separator"></div>
       <div id="top-div"">
         <div class="slidecontainer">
-          <input type="range" min="1" max="100" value="1" class="slider" id="myRange">
+          <input type="range" min="0" max="100" value="0" class="slider" id="myRange">
         </div>
       </div>
     </div>
@@ -306,7 +306,8 @@
         const jsonData = await response.json();
         vehicle = jsonData;
         length = Object.keys(vehicle).length;
-        document.getElementById("myRange").max = length - 1;
+        document.getElementById("myRange").max = length
+        document.getElementById("myRange").value = Math.floor(length / 2);
         console.log(vehicle);
       }
 
@@ -315,14 +316,16 @@
 
         let latLongs = [];
 
-        for (let i = 0; i < sliderOutput; i++) {
-          latLongs.push(vehicle[i].latitude, vehicle[i].longitude);
-        }
-
         tSelection = vehicle[sliderOutput].tstamp * 1000;
         dateSelection = new Date(tSelection);
         dateStart = new Date(vehicle[0].tstamp * 1000);
         dateEnd = new Date(vehicle[length - 1].tstamp * 1000);
+
+        vehicle.forEach(element => {
+          while (element.tstamp <= vehicle[sliderOutput].tstamp) {
+            latLongs.push([element.latitude, element.longitude]);
+          }
+        });
 
         var polyline = L.polyline(latLongs, {color: 'red'}).addTo(myMap);
 
