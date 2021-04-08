@@ -100,8 +100,15 @@
   </div>
 </nav>
 
-<<<<<<< HEAD
         const tiles = L.tileLayer(tileUrl,  { attribution }).addTo(myMap);
+	
+	var route = [
+	  [50.5, 30.5],
+	  [50.4, 30.6],
+	  [50.3, 30.7]
+	];
+	var distance = 10; // Distance in km
+	var boxes = L.RouteBoxer.box(route, distance);
 
 
         const greenIcon = new L.Icon({
@@ -172,9 +179,6 @@
         }
 
         function splitIncomingData(data) {
-=======
-    
->>>>>>> f866979485f66bd9b963e7a9536d18c2fb9513b7
 
     <script>
 
