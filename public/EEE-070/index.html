@@ -322,7 +322,7 @@
         dateEnd = new Date(vehicle[length - 1].tstamp * 1000);
 
         vehicle.forEach(element => {
-          while (element.tstamp <= vehicle[sliderOutput].tstamp) {
+          if (element.tstamp <= vehicle[sliderOutput].tstamp) {
             latLongs.push([element.latitude, element.longitude]);
           }
         });
