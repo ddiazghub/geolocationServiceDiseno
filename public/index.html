@@ -63,28 +63,29 @@
   <div class="collapse navbar-collapse" id="navbarNavDropdown">
     <ul class="navbar-nav">
       <li class="nav-item active">
-        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+        <a class="nav-link" href="http://34.221.26.86:50001/">Inicio<span class="sr-only">(current)</span></a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#">Features</a>
+        <a class="nav-link" href="http://34.221.26.86:50001/products/">Productos</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#">Pricing</a>
+        <a class="nav-link" href="http://34.221.26.86:50001/liveMap/">Ubicación en vivo</a>
       </li>
       <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           Ubicación histórica
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-          <a class="dropdown-item" href="http://localhost:50001/EEE-070/">EFE-070</a>
-          <a class="dropdown-item" href="http://localhost:50001/ABC-425/">ABC-425</a>
-          <a class="dropdown-item" href="http://localhost:50001/BTE-425/">BTE-425</a>
+          <a class="dropdown-item" href="http://34.221.26.86:50001/EEE-070/">EFE-070</a>
+          <a class="dropdown-item" href="http://34.221.26.86:50001/ABC-425/">ABC-425</a>
+          <a class="dropdown-item" href="http://34.221.26.86:50001/BTE-425/">BTE-425</a>
         </div>
       </li>
     </ul>
   </div>
 </nav>
 
+<<<<<<< HEAD
     <div id="mapid"></div>
 
 	<script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
@@ -169,40 +170,6 @@
         });
 
 	
-	var routing = new L.Routing({
-  	    position: 'topright'
-  	    ,routing: {
-	    router: myRouterFunction
-	  }
-	  ,tooltips: {
-	    waypoint: 'Waypoint. Drag to move; Click to remove.',
-	    segment: 'Drag to create a new waypoint'
-	  }
-	  ,styles: {     // see http://leafletjs.com/reference.html#polyline-options
-	    trailer: {}  // drawing line
-	    ,track: {}   // calculated route result
-	    ,nodata: {}  // line when no result (error)
-	  }
-	  ,snapping: {
-	    layers: [mySnappingLayer]
-	    ,sensitivity: 15
-	    ,vertexonly: false
-	  }
-	  ,shortcut: {
-	    draw: {
-	      enable: 68    // 'd'
-	      ,disable: 81  // 'q'
-	    }
-	  }
-	});
-	map.addControl(routing);
-
-	routing.draw(true)
-	routing.rerouteAllSegments(callback);
-
-
-
-
 
         const marker_1 = L.marker([0, 0]).addTo(myMap);
         const marker_2 = L.marker([0, 0], {icon: greenIcon}).addTo(myMap);
@@ -273,6 +240,13 @@
             x.className = "topnav";
           }
         }
+=======
+    
+
+    <script>
+
+      
+>>>>>>> b79220e1dad63056aea44bc4722ef44bd95a0a82
     </script>
     
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
