@@ -306,7 +306,7 @@
         const jsonData = await response.json();
         vehicle = jsonData;
         length = Object.keys(vehicle).length;
-        document.getElementById("myRange").max = length;
+        document.getElementById("myRange").max = length - 1;
         console.log(vehicle);
       }
 
@@ -315,20 +315,17 @@
 
         let latLongs = [];
 
-        const polyline = L.polyline([], {color: 'red'}).addTo(myMap);
-
         tSelection = vehicle[sliderOutput].tstamp * 1000;
         dateSelection = new Date(tSelection);
         dateStart = new Date(vehicle[0].tstamp * 1000);
         dateEnd = new Date(vehicle[length - 1].tstamp * 1000);
 
         vehicle.forEach(element => {
-          if (element.tstamp < vehicle[sliderOutput].tstamp) {
             latLongs.push([element.latitude, element.longitude]);
-          }
         });
 
-        polyline.addLatLng(latLongs);
+        var polyline = L.polyline(latLongs, {color: 'red'}).addTo(myMap);
+
         marker_1.setLatLng([vehicle[0].latitude, vehicle[0].longitude]);
         marker_1.bindPopup("Inicio " + dateStart.getDate()+
           "/"+(dateStart.getMonth()+1)+
