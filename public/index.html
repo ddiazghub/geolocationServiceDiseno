@@ -32,7 +32,6 @@
    <script src="http://maxcdn.bootstrapcdn.com/bottstrap/4.3.1/js/bootstrap.min.js"></script>
    <style>
     
-
        @import url('//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-theme.min.css');
 
        #mapid { height: 550px; }
@@ -46,9 +45,13 @@
 
         table { width: 100%; }
 
-
    </style>
 
+
+
+
+
+   
     <style type="text/css">
         .tg  {border-collapse:collapse;border-spacing:0;}
         .tg td{border-color:black;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;
@@ -69,6 +72,23 @@
       </div>
     </nav>
 	
+
+	<script>
+
+        let boundsSet = false; 
+
+        const myMap = L.map('mapid').setView([10.9578, -74.792], 12);
+
+        const attribution = '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors';
+
+        const tileUrl = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
+
+        const tiles = L.tileLayer(tileUrl,  { attribution }).addTo(myMap);
+    	
+	</script>
+
+
+
 
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
   <a class="navbar-brand" href="#">Navbar</a>
@@ -179,6 +199,15 @@
         }
 
         function splitIncomingData(data) {
+
+	    const dataLines = data.split("\n")
+            const dataSplit = ["", "", ""]
+            for (const lines in dataLines) {
+                dataSplit[lines] = dataLines[lines].split(" ");
+            }
+            return dataSplit;
+
+	}
 
     <script>
 
