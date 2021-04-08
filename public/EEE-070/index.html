@@ -343,6 +343,11 @@
           ":"+dateEnd.getMinutes()+
           ":"+dateEnd.getSeconds()).openPopup();
 
+          var latLongs = [vehicle.latitude, vehicle.longitude];
+
+          var polyline = L.polyline(latLongs, {color: 'red'}).addTo(myMap);
+
+
         if (!boundsSet) {
           const group = new L.featureGroup([marker_1, marker_2, marker_3]);
           myMap.fitBounds(group.getBounds().pad(0.5));
