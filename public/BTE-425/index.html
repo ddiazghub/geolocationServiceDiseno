@@ -230,7 +230,7 @@
       <div id="separator"></div>
       <div id="top-div"">
         <div class="slidecontainer">
-          <input type="range" min="1" max="100" value="50" class="slider" id="myRange">
+          <input type="range" min="0" max="100" value="0" class="slider" id="myRange">
         </div>
       </div>
     </div>
@@ -305,8 +305,7 @@
         const jsonData = await response.json();
         vehicle = jsonData;
         length = Object.keys(vehicle).length;
-        document.getElementById("myRange").max = length
-        document.getElementById("myRange").value = Math.floor(length / 2);
+        document.getElementById("myRange").max = length - 1;
         console.log(vehicle);
       }
 
@@ -341,6 +340,11 @@
           " "+dateEnd.getHours()+
           ":"+dateEnd.getMinutes()+
           ":"+dateEnd.getSeconds()).openPopup();
+
+          var latLongs = [vehicle.latitude, vehicle.longitude];
+
+          var polyline = L.polyline(latLongs, {color: 'red'}).addTo(myMap);
+
 
         if (!boundsSet) {
           const group = new L.featureGroup([marker_1, marker_2, marker_3]);
