@@ -290,7 +290,6 @@
       const marker_1 = L.marker([0, 0]).addTo(myMap);
       const marker_2 = L.marker([0, 0], { icon: greenIcon }).addTo(myMap);
       const marker_3 = L.marker([0, 0], { icon: redIcon }).addTo(myMap);
-      const polyline = L.polyline([], {color: 'red'}).addTo(myMap);
 
       if (fetchData) {
         getData();
@@ -316,6 +315,8 @@
 
         let latLongs = [];
 
+        const polyline = L.polyline([], {color: 'red'}).addTo(myMap);
+
         tSelection = vehicle[sliderOutput].tstamp * 1000;
         dateSelection = new Date(tSelection);
         dateStart = new Date(vehicle[0].tstamp * 1000);
@@ -327,7 +328,7 @@
           }
         });
 
-        polyline.setLatLng(latLongs);
+        polylin.addLatLng(latLongs);
         marker_1.setLatLng([vehicle[0].latitude, vehicle[0].longitude]);
         marker_1.bindPopup("Inicio " + dateStart.getDate()+
           "/"+(dateStart.getMonth()+1)+
