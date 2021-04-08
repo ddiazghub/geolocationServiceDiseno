@@ -47,7 +47,7 @@
 
 </head>
 
-<body>
+<body class="vsc-initialized">
     <nav class="navbar navbar-dark bg dark">
       <div class="container">
         <h1 style="color: green">MY CAR LOCATION</h1> 
@@ -56,25 +56,25 @@
     </nav>
 
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <a class="navbar-brand" href="#">Navbar</a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-  <div class="collapse navbar-collapse" id="navbarNavDropdown">
-    <ul class="navbar-nav">
-      <li class="nav-item active">
-        <a class="nav-link" href="http://34.221.26.86:50001/">Inicio<span class="sr-only">(current)</span></a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="http://34.221.26.86:50001/products/">Productos</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="http://34.221.26.86:50001/liveMap/">Ubicación en vivo</a>
-      </li>
-      <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+  	<a class="navbar-brand" href="#">Navbar</a>
+  	<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+    	  <span class="navbar-toggler-icon"></span>
+  	</button>
+  	<div class="collapse navbar-collapse" id="navbarNavDropdown">
+    	<ul class="navbar-nav">
+    	  <li class="nav-item active">
+      	   <a class="nav-link" href="http://34.221.26.86:50001/">Inicio<span class="sr-only">(current)</span></a>
+    	  </li>
+    	  <li class="nav-item">
+     	   <a class="nav-link" href="http://34.221.26.86:50001/products/">Productos</a>
+    	  </li>
+    	  <li class="nav-item">
+    	   <a class="nav-link" href="http://34.221.26.86:50001/liveMap/">Ubicación en vivo</a>
+    	  </li>
+    	  <li class="nav-item dropdown">
+     	   <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           Ubicación histórica
-        </a>
+      	   </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
           <a class="dropdown-item" href="http://34.221.26.86:50001/EEE-070/">EFE-070</a>
           <a class="dropdown-item" href="http://34.221.26.86:50001/ABC-425/">ABC-425</a>
@@ -171,6 +171,28 @@
             console.log(vehicles);            
             updateMarkersAndText(vehicles);
         }
+
+
+
+
+
+	var route = [
+ 	  [50.5,30.5],
+  	  [50.4,30.6],
+	  [50.3,30.7]
+
+	];
+
+	var distance = 10; //
+	var boxes = L.RouterBoxer.box(route,distance);
+
+	var route = new L.Polyline(L.PolylineUtil.decode(data.route[0].geometry));
+	var distance = 10; // Distance in km
+	var boxes = L.RouteBoxer.box(route, distance);
+
+
+
+
 
         function updateMarkersAndText(data) {
 
