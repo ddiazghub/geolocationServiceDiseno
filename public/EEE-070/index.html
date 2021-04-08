@@ -230,7 +230,7 @@
       <div id="separator"></div>
       <div id="top-div"">
         <div class="slidecontainer">
-          <input type="range" min="1" max="100" value="50" class="slider" id="myRange">
+          <input type="range" min="1" max="100" value="1" class="slider" id="myRange">
         </div>
       </div>
     </div>
@@ -306,22 +306,17 @@
         const jsonData = await response.json();
         vehicle = jsonData;
         length = Object.keys(vehicle).length;
-        document.getElementById("myRange").max = length
-        document.getElementById("myRange").value = Math.floor(length / 2);
+        document.getElementById("myRange").max = length - 1;
         console.log(vehicle);
       }
 
       slider.oninput = function() {
         sliderOutput = this.value;
 
-        let latLongs1 = [];
-        let latLongs2 = [];
-        vehicle.forEach(element => {
-          latLongs1.push([element.latitude, element.longitude]);
-        });
+        let latLongs = [];
 
         for (let i = 0; i < sliderOutput; i++) {
-          latLongs2.push(vehicle[i].latitude, vehicle[i].longitude);
+          latLongs.push(vehicle[i].latitude, vehicle[i].longitude);
         }
 
         tSelection = vehicle[sliderOutput].tstamp * 1000;
@@ -329,8 +324,7 @@
         dateStart = new Date(vehicle[0].tstamp * 1000);
         dateEnd = new Date(vehicle[length - 1].tstamp * 1000);
 
-        var polyline1 = L.polyline(latLongs1, {color: 'red'}).addTo(myMap);
-        var polyline2 = L.polyline(latLongs2, {color: 'green'}).addTo(myMap);
+        var polyline = L.polyline(latLongs, {color: 'red'}).addTo(myMap);
 
         marker_1.setLatLng([vehicle[0].latitude, vehicle[0].longitude]);
         marker_1.bindPopup("Inicio " + dateStart.getDate()+
