@@ -32,6 +32,22 @@
    <script src="http://maxcdn.bootstrapcdn.com/bottstrap/4.3.1/js/bootstrap.min.js"></script>
    <style>
 
+	let boundsSet = false; 
+
+        const myMap = L.map('mapid').setView([10.9578, -74.792], 12);
+
+        const attribution = '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors';
+
+        const tileUrl = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
+
+        const tiles = L.tileLayer(tileUrl,  { attribution }).addTo(myMap);
+        
+
+
+
+
+
+
        @import url('//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-theme.min.css');
 
        #mapid { height: 550px; }
