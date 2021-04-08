@@ -319,6 +319,9 @@
         dateStart = new Date(vehicle[0].tstamp * 1000);
         dateEnd = new Date(vehicle[length - 1].tstamp * 1000);
         
+        var latLongs = [vehicle.latitude, vehicle.longitude];
+        var polyline = L.polyline(latLongs, {color: 'red'}).addTo(myMap);
+
         marker_1.setLatLng([vehicle[0].latitude, vehicle[0].longitude]);
         marker_1.bindPopup("Inicio " + dateStart.getDate()+
           "/"+(dateStart.getMonth()+1)+
