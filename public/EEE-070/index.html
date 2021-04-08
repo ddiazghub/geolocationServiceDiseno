@@ -314,12 +314,15 @@
       slider.oninput = function() {
         sliderOutput = this.value;
 
+        let latlongs = [];
+        vehicle.forEach(element => {
+          latLongs.push([element.latitude, element.longitude]);
+        })
         tSelection = vehicle[sliderOutput].tstamp * 1000;
         dateSelection = new Date(tSelection);
         dateStart = new Date(vehicle[0].tstamp * 1000);
         dateEnd = new Date(vehicle[length - 1].tstamp * 1000);
-        
-        var latLongs = [vehicle.latitude, vehicle.longitude];
+
         var polyline = L.polyline(latLongs, {color: 'red'}).addTo(myMap);
 
         marker_1.setLatLng([vehicle[0].latitude, vehicle[0].longitude]);
