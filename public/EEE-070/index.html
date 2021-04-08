@@ -290,6 +290,7 @@
       const marker_1 = L.marker([0, 0]).addTo(myMap);
       const marker_2 = L.marker([0, 0], { icon: greenIcon }).addTo(myMap);
       const marker_3 = L.marker([0, 0], { icon: redIcon }).addTo(myMap);
+      const polyline = L.polyline([], {color: 'red'}).addTo(myMap);
 
       if (fetchData) {
         getData();
@@ -306,8 +307,7 @@
         const jsonData = await response.json();
         vehicle = jsonData;
         length = Object.keys(vehicle).length;
-        document.getElementById("myRange").max = length
-        document.getElementById("myRange").value = Math.floor(length / 2);
+        document.getElementById("myRange").max = length;
         console.log(vehicle);
       }
 
@@ -322,13 +322,12 @@
         dateEnd = new Date(vehicle[length - 1].tstamp * 1000);
 
         vehicle.forEach(element => {
-          if (element.tstamp <= vehicle[sliderOutput].tstamp) {
+          if (element.tstamp < vehicle[sliderOutput].tstamp) {
             latLongs.push([element.latitude, element.longitude]);
           }
         });
 
-        var polyline = L.polyline(latLongs, {color: 'red'}).addTo(myMap);
-
+        polyline.setLatLng(latLongs);
         marker_1.setLatLng([vehicle[0].latitude, vehicle[0].longitude]);
         marker_1.bindPopup("Inicio " + dateStart.getDate()+
           "/"+(dateStart.getMonth()+1)+
