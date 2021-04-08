@@ -248,6 +248,9 @@
 
       var sliderOutput = slider.value;
       let vehicle;
+      let dateSelection;
+      let dateStart = new Date(vehicle[0].tstamp * 1000);
+      let dateEnd = new Date(vehicle[length - 1].tstamp * 1000);
 
       let initialTimeStamp = 0;
       let endingTimeStamp = 0;
@@ -310,9 +313,9 @@
         sliderOutput = this.value;
 
         tSelection = vehicle[sliderOutput].tstamp * 1000;
-        const dateSelection = new Date(tSelection);
-        const dateStart = new Date(vehicle[0].tstamp * 1000);
-        const dateEnd = new Date(vehicle[length - 1].tstamp * 1000);
+        dateSelection = new Date(tSelection);
+        dateStart = new Date(vehicle[0].tstamp * 1000);
+        dateEnd = new Date(vehicle[length - 1].tstamp * 1000);
         
         marker_1.setLatLng([vehicle[0].latitude, vehicle[0].longitude]);
         marker_1.bindPopup("Inicio " + dateStart.getDate()+
