@@ -33,6 +33,9 @@
       integrity="sha512-JmpptMCcCg+Rd6x0Dbg6w+mmyzs1M7chHCd9W8HPovnImG2nLAQWn3yltwxXRM7WjKKFFHOAKjjF2SC4CgiFBg=="
       crossorigin=""
     ></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
     <link
       rel="stylesheet"
       href="http://code.jquery.com/ui/1.9.2/themes/base/jquery-ui.css"
@@ -217,13 +220,10 @@
     <div id="time-ranges" class="leaflet-bar">
       <div id="top-div"">
         <form action="#" id="form">
-          <label for="to"
-            >Fecha <input id="to" type="date" value="2021-3-31" name="to"
-          /></label>
           <label for="startTime">Tiempo inicial</label>
-          <input type="time" id="startTime" name="startTime" />
+          <input type="datetime-local" id="startTime" name="startTime"">
           <label for="endTime">Tiempo Final</label>
-          <input type="time" id="endTime" name="endTime" />
+          <input type="datetime-local" id="endTime" name="endTime">
           <input type="button" id="newDateTime" value="Actualizar" target="mapid"/>
         </form>
       </div>
@@ -243,7 +243,6 @@
 
       let tSelection = 0;
       var timeForm = document.getElementById("form");
-      var timeInput = document.getElementById("to");
 
       var slider = document.getElementById("myRange");
 
@@ -293,9 +292,8 @@
 
       if (fetchData) {
         getData();
+        setInterval(getData, 5000);
       }
-
-      setInterval(getData, 5000);
 
       async function getData() {
         console.log(initialTimeStamp);
@@ -363,19 +361,17 @@
       });
 
       document.getElementById("newDateTime").addEventListener("click", function () {
-        var date = document.getElementById("to").value;
         var startTime = document.getElementById("startTime").value;
         var endTime = document.getElementById("endTime").value;
-        var startDate = date.concat(" ").concat(startTime);
-        var endDate = date.concat(" ").concat(endTime);
-        var dateEnteredStart = new Date(startDate);
-        var dateEnteredEnd = new Date(endDate);
+        console.log(startTime);
+        console.log(endTime);
+        var dateEnteredStart = new Date(startTime);
+        var dateEnteredEnd = new Date(endTime);
+        console.log(dateEnteredStart);
+        console.log(dateEnteredEnd);
         fetchData = true;
         initialTimeStamp = dateEnteredStart.getTime() / 1000;
         endingTimeStamp = dateEnteredEnd.getTime() / 1000;
-        console.log(startTime);
-        console.log(dateEnteredStart);
-        console.log(dateEnteredEnd); //e.g. Fri Nov 13 2015 00:00:00 GMT+0000 (GMT Standard Time)
       });
 
 
