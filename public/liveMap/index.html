@@ -56,7 +56,7 @@
     </nav>
 
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
-<<<<<<< HEAD
+
   	
   	<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
     	  <span class="navbar-toggler-icon"></span>
@@ -79,11 +79,7 @@
           <a class="dropdown-item" href="http://54.71.123.233:50001/ABC-425/">ABC-425</a>
           <a class="dropdown-item" href="http://54.71.123.233:50001/BTE-425/">BTE-425</a>
         </div>
-=======
-<<<<<<< HEAD
-  
-=======
->>>>>>> a8f0699b256dbd21bcf8e1f41aee13aaad8ffde5
+
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
@@ -92,16 +88,13 @@
       <li class="nav-item active">
         <a class="nav-link" href="http://34.221.26.86:50001/">Inicio<span class="sr-only">(current)</span></a>
       </li>
-<<<<<<< HEAD
-      
-=======
->>>>>>> a8f0699b256dbd21bcf8e1f41aee13aaad8ffde5
+
       <li class="nav-item">
         <a class="nav-link" href="http://34.221.26.86:50001/liveMap/">Ubicación en vivo</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="http://34.221.26.86:50001/history/">Ubicación histórica</a>
->>>>>>> master
+
       </li>
     </ul>
   </div>
@@ -233,7 +226,7 @@
 
         function updateMarkersAndText(data) {
 
-<<<<<<< HEAD
+
             document.getElementById('lat').innerHTML = vehicles[0].latitude;
             document.getElementById('lon').innerHTML = vehicles[0].longitude;
             document.getElementById('fec').innerHTML = vehicles[0].date;
@@ -254,7 +247,7 @@
             document.getElementById('time').textContent = vehicles[2].time;
             marker_3.setLatLng([vehicles[2].latitude, vehicles[2].longitude]);
             marker_3.bindPopup("Placa: BTE-425").openPopup();
-=======
+
           vehicles.forEach(vehicle => {
             let date = new Date(vehicle.tstamp * 1000);
             let latLongs = [vehicle.latitude, vehicle.longitude];
@@ -290,7 +283,7 @@
               boundsSet = true;
             }
 
->>>>>>> master
+
         }
 
         function splitIncomingData(data) {
