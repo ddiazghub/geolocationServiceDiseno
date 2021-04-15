@@ -56,6 +56,7 @@
     </nav>
 
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
+<<<<<<< HEAD
   	
   	<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
     	  <span class="navbar-toggler-icon"></span>
@@ -78,6 +79,29 @@
           <a class="dropdown-item" href="http://54.71.123.233:50001/ABC-425/">ABC-425</a>
           <a class="dropdown-item" href="http://54.71.123.233:50001/BTE-425/">BTE-425</a>
         </div>
+=======
+<<<<<<< HEAD
+  
+=======
+>>>>>>> a8f0699b256dbd21bcf8e1f41aee13aaad8ffde5
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNavDropdown">
+    <ul class="navbar-nav">
+      <li class="nav-item active">
+        <a class="nav-link" href="http://34.221.26.86:50001/">Inicio<span class="sr-only">(current)</span></a>
+      </li>
+<<<<<<< HEAD
+      
+=======
+>>>>>>> a8f0699b256dbd21bcf8e1f41aee13aaad8ffde5
+      <li class="nav-item">
+        <a class="nav-link" href="http://34.221.26.86:50001/liveMap/">Ubicación en vivo</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="http://34.221.26.86:50001/history/">Ubicación histórica</a>
+>>>>>>> master
       </li>
     </ul>
   </div>
@@ -93,8 +117,7 @@
             <th scope="col">Placa</th>
             <th scope="col">Latitud</th>
             <th scope="col">Longitud</th>
-            <th scope="col">Fecha</th>
-            <th scope="col">Hora</th>
+            <th scope="col">Fecha y Hora Local</th>
           </tr>
         </thead>
 
@@ -104,21 +127,18 @@
             <td class="tg-0lax" id="lat">10.992390086364746</td>
             <td class="tg-0lax" id="lon">-74.80256652832031</td>
             <td class="tg-0lax" id="fec">2021-03-09</td>
-            <td class="tg-0lax" id="hor">19:05:11</td>
           </tr>
           <tr>
             <th scope="row" id="plate2">ABC-425</th>
             <td class="tg-0lax" id="latitud">10.992390086364746</td>
             <td class="tg-0lax" id="longitud">-74.80256652832031</td>
             <td class="tg-0lax" id="fecha">2021-03-09</td>
-            <td class="tg-0lax" id="hora">19:05:11</td>
           </tr>
           <tr>
             <th scope="row" id="plate3">BTE-425</th>
             <td class="tg-0lax" id="latitude">10.992390086364746</td>
             <td class="tg-0lax" id="longitude">-74.80256652832031</td>
             <td class="tg-0lax" id="date">2021-03-09</td>
-            <td class="tg-0lax" id="time">2021-03-09</td>
           </tr>
         </tbody>
     </table>
@@ -133,27 +153,46 @@
 
         const tiles = L.tileLayer(tileUrl,  { attribution }).addTo(myMap);
         
-        const greenIcon = new L.Icon({
-            iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-green.png',
-            shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
-            iconSize: [25, 41],
-            iconAnchor: [12, 41],
-            popupAnchor: [1, -34],
-            shadowSize: [41, 41]
-        });
+        var taxi1Icon = new L.Icon({
+        iconUrl:
+          "../static/taxi1.png",
+        shadowUrl:
+          "https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png",
+        iconSize: [41, 60],
+        iconAnchor: [12, 41],
+        popupAnchor: [1, -34],
+        shadowSize: [41, 41],
+      });
 
-        var redIcon = new L.Icon({
-            iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png',
-            shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
-            iconSize: [25, 41],
-            iconAnchor: [12, 41],
-            popupAnchor: [1, -34],
-            shadowSize: [41, 41]
-        });
+      var taxi2Icon = new L.Icon({
+        iconUrl:
+          "../static/taxi2.png",
+        shadowUrl:
+          "https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png",
+        iconSize: [41, 60],
+        iconAnchor: [12, 41],
+        popupAnchor: [1, -34],
+        shadowSize: [41, 41],
+      });
 
-        const marker_1 = L.marker([0, 0]).addTo(myMap);
-        const marker_2 = L.marker([0, 0], {icon: greenIcon}).addTo(myMap);
-        const marker_3 = L.marker([0, 0], {icon: redIcon}).addTo(myMap);
+      var taxi3Icon = new L.Icon({
+        iconUrl:
+          "../static/taxi3.png",
+        shadowUrl:
+          "https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png",
+        iconSize: [41, 60],
+        iconAnchor: [12, 41],
+        popupAnchor: [1, -34],
+        shadowSize: [41, 41],
+      });
+
+        const marker_1 = L.marker([0, 0], {icon: taxi1Icon}).addTo(myMap);
+        const marker_2 = L.marker([0, 0], {icon: taxi2Icon}).addTo(myMap);
+        const marker_3 = L.marker([0, 0], {icon: taxi3Icon}).addTo(myMap);
+
+        var polyline1 = L.polyline([]).addTo(myMap);
+        var polyline2 = L.polyline([], {color: 'red'}).addTo(myMap);
+        var polyline3 = L.polyline([], {color: '#000'}).addTo(myMap);
 
         getData();
 
@@ -167,6 +206,7 @@
             vehicles = jsonData;
             console.log(vehicles);            
             updateMarkersAndText(vehicles);
+          
         }
 
 
@@ -193,6 +233,7 @@
 
         function updateMarkersAndText(data) {
 
+<<<<<<< HEAD
             document.getElementById('lat').innerHTML = vehicles[0].latitude;
             document.getElementById('lon').innerHTML = vehicles[0].longitude;
             document.getElementById('fec').innerHTML = vehicles[0].date;
@@ -213,6 +254,43 @@
             document.getElementById('time').textContent = vehicles[2].time;
             marker_3.setLatLng([vehicles[2].latitude, vehicles[2].longitude]);
             marker_3.bindPopup("Placa: BTE-425").openPopup();
+=======
+          vehicles.forEach(vehicle => {
+            let date = new Date(vehicle.tstamp * 1000);
+            let latLongs = [vehicle.latitude, vehicle.longitude];
+            console.log(date);
+            console.log(vehicle.tstamp);
+            switch (vehicle.id) {
+              case "efee70":
+                document.getElementById('lat').innerHTML = vehicle.latitude;
+                document.getElementById('lon').innerHTML = vehicle.longitude;
+                document.getElementById('fec').innerHTML = date;
+                marker_1.setLatLng(latLongs);
+                polyline1.addLatLng(latLongs);
+                break;
+              case "487a8d":
+                document.getElementById('latitud').innerHTML = vehicle.latitude;
+                document.getElementById('longitud').innerHTML = vehicle.longitude;
+                document.getElementById('fecha').innerHTML = date;
+                marker_2.setLatLng(latLongs);
+                polyline2.addLatLng(latLongs);
+                break;
+              case "b7ea25":
+                document.getElementById('latitude').textContent = vehicle.latitude;
+                document.getElementById('longitude').textContent = vehicle.longitude;
+                document.getElementById('date').textContent = date;
+                marker_3.setLatLng(latLongs);
+                polyline3.addLatLng(latLongs);
+            }
+          });
+
+            if (!boundsSet) {
+              const group = new L.featureGroup([marker_1, marker_2, marker_3]);
+              myMap.fitBounds(group.getBounds().pad(0.5));
+              boundsSet = true;
+            }
+
+>>>>>>> master
         }
 
         function splitIncomingData(data) {
