@@ -8,7 +8,6 @@
   <meta name="description" content="My Car Location">
   <meta name="author" content="SitePoint">
 
-
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <link rel="stylesheet" href= "https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">  
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
@@ -18,228 +17,79 @@
    integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
    crossorigin=""></script>
    <script src="http://maxcdn.bootstrapcdn.com/bottstrap/4.3.1/js/bootstrap.min.js"></script>
-   <style>
 
-       @import url('//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-theme.min.css');
-
-       #mapid { height: 550px; }
-       #mapid { width: 100%; }
-     
-
-       p{
-        font-size: 20px;  /*tamaÃ±o*/
-        
-        }
-
-        table { width: 100%; }
-
-   </style>
-
-    <style type="text/css">
-        .tg  {border-collapse:collapse;border-spacing:0;}
-        .tg td{border-color:black;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;
-        overflow:hidden;padding:10px 5px;word-break:normal;}
-        .tg th{border-color:black;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;
-        font-weight:normal;overflow:hidden;padding:10px 5px;word-break:normal;}
-        .tg .tg-0lax{text-align:left;vertical-align:top}
-        
-    </style>
+  <link rel="stylesheet" href="../css/styles.css" type="text/css">
+  <link rel="stylesheet" href="../css/text.css" type="text/css">
 
 </head>
 
 <body>
-    <nav class="navbar navbar-dark bg dark">
-      <div class="container">
-        <h1 style="color: green">MY CAR LOCATION</h1> 
-        <div class="well">Sistema de Geolocazación móvil</div> 
-      </div>
-    </nav>
+  <nav class="navbar navbar-dark bg dark">
+    <div class="container">
+      <h1 style="color: green">MY CAR LOCATION</h1> 
+      <div class="well">Sistema de Geolocazación móvil</div> 
+    </div>
+  </nav>
 
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-  <div class="collapse navbar-collapse" id="navbarNavDropdown">
-    <ul class="navbar-nav">
-      <li class="nav-item active">
-        <a class="nav-link" href="http://34.221.26.86:50001/">Inicio<span class="sr-only">(current)</span></a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="http://34.221.26.86:50001/liveMap/">Ubicación en vivo</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="http://34.221.26.86:50001/history/">Ubicación histórica</a>
-      </li>
-    </ul>
-  </div>
-</nav>
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavDropdown">
+      <ul class="navbar-nav">
+        <li class="nav-item active">
+          <a class="nav-link" href="http://34.221.26.86:50001/">Inicio<span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="http://34.221.26.86:50001/liveMap/">Ubicación en vivo</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="http://34.221.26.86:50001/history/">Ubicación histórica</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
 
-    <div id="mapid"></div>
+  <div id="mapid"></div>
 
-    <div id="table" style="margin-top:30px"></div>
-    <table class="table">
-        <thead class="thead-dark">
-          <tr>
-            <th scope="col">Placa</th>
-            <th scope="col">Latitud</th>
-            <th scope="col">Longitud</th>
-            <th scope="col">Fecha y Hora Local</th>
-          </tr>
-        </thead>
+  <div id="table" style="margin-top:30px"></div>
+  <table class="table">
+      <thead class="thead-dark">
+        <tr>
+          <th scope="col">Placa</th>
+          <th scope="col">Latitud</th>
+          <th scope="col">Longitud</th>
+          <th scope="col">Fecha y Hora Local</th>
+        </tr>
+      </thead>
 
-        <tbody>
-          <tr>
-            <th scope="row" id="plate1">EFE-070</th>
-            <td class="tg-0lax" id="lat">10.992390086364746</td>
-            <td class="tg-0lax" id="lon">-74.80256652832031</td>
-            <td class="tg-0lax" id="fec">2021-03-09</td>
-          </tr>
-          <tr>
-            <th scope="row" id="plate2">ABC-425</th>
-            <td class="tg-0lax" id="latitud">10.992390086364746</td>
-            <td class="tg-0lax" id="longitud">-74.80256652832031</td>
-            <td class="tg-0lax" id="fecha">2021-03-09</td>
-          </tr>
-          <tr>
-            <th scope="row" id="plate3">BTE-425</th>
-            <td class="tg-0lax" id="latitude">10.992390086364746</td>
-            <td class="tg-0lax" id="longitude">-74.80256652832031</td>
-            <td class="tg-0lax" id="date">2021-03-09</td>
-          </tr>
-        </tbody>
-    </table>
+      <tbody>
+        <tr>
+          <th scope="row" id="plate1">EFE-070</th>
+          <td class="tg-0lax" id="lat">10.992390086364746</td>
+          <td class="tg-0lax" id="lon">-74.80256652832031</td>
+          <td class="tg-0lax" id="fec">2021-03-09</td>
+        </tr>
+        <tr>
+          <th scope="row" id="plate2">ABC-425</th>
+          <td class="tg-0lax" id="latitud">10.992390086364746</td>
+          <td class="tg-0lax" id="longitud">-74.80256652832031</td>
+          <td class="tg-0lax" id="fecha">2021-03-09</td>
+        </tr>
+        <tr>
+          <th scope="row" id="plate3">BTE-425</th>
+          <td class="tg-0lax" id="latitude">10.992390086364746</td>
+          <td class="tg-0lax" id="longitude">-74.80256652832031</td>
+          <td class="tg-0lax" id="date">2021-03-09</td>
+        </tr>
+      </tbody>
+  </table>
 
-    <script>
-
-        let boundsSet = false; 
-
-        const myMap = L.map('mapid').setView([10.9578, -74.792], 12);
-
-        const attribution = '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors';
-
-        const tileUrl = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
-
-        const tiles = L.tileLayer(tileUrl,  { attribution }).addTo(myMap);
-        
-        var taxi1Icon = new L.Icon({
-        iconUrl:
-          "../static/taxi1.png",
-        shadowUrl:
-          "https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png",
-        iconSize: [41, 60],
-        iconAnchor: [12, 41],
-        popupAnchor: [1, -34],
-        shadowSize: [41, 41],
-      });
-
-      var taxi2Icon = new L.Icon({
-        iconUrl:
-          "../static/taxi2.png",
-        shadowUrl:
-          "https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png",
-        iconSize: [41, 60],
-        iconAnchor: [12, 41],
-        popupAnchor: [1, -34],
-        shadowSize: [41, 41],
-      });
-
-      var taxi3Icon = new L.Icon({
-        iconUrl:
-          "../static/taxi3.png",
-        shadowUrl:
-          "https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png",
-        iconSize: [41, 60],
-        iconAnchor: [12, 41],
-        popupAnchor: [1, -34],
-        shadowSize: [41, 41],
-      });
-
-        const marker_1 = L.marker([0, 0], {icon: taxi1Icon}).addTo(myMap);
-        const marker_2 = L.marker([0, 0], {icon: taxi2Icon}).addTo(myMap);
-        const marker_3 = L.marker([0, 0], {icon: taxi3Icon}).addTo(myMap);
-
-        var polyline1 = L.polyline([]).addTo(myMap);
-        var polyline2 = L.polyline([], {color: 'red'}).addTo(myMap);
-        var polyline3 = L.polyline([], {color: '#000'}).addTo(myMap);
-
-        getData();
-
-        setInterval(getData, 5000);
-
-        async function getData() {
-
-            const response = await fetch('http://34.221.26.86:50001/vehicles/');
-            const jsonData = await response.json();
-            
-            vehicles = jsonData;
-            console.log(vehicles);            
-            updateMarkersAndText(vehicles);
-          
-        }
-
-        function updateMarkersAndText(data) {
-
-          vehicles.forEach(vehicle => {
-            let date = new Date(vehicle.tstamp * 1000);
-            let latLongs = [vehicle.latitude, vehicle.longitude];
-            console.log(date);
-            console.log(vehicle.tstamp);
-            switch (vehicle.id) {
-              case "efee70":
-                document.getElementById('lat').innerHTML = vehicle.latitude;
-                document.getElementById('lon').innerHTML = vehicle.longitude;
-                document.getElementById('fec').innerHTML = date;
-                marker_1.setLatLng(latLongs);
-                polyline1.addLatLng(latLongs);
-                break;
-              case "487a8d":
-                document.getElementById('latitud').innerHTML = vehicle.latitude;
-                document.getElementById('longitud').innerHTML = vehicle.longitude;
-                document.getElementById('fecha').innerHTML = date;
-                marker_2.setLatLng(latLongs);
-                polyline2.addLatLng(latLongs);
-                break;
-              case "b7ea25":
-                document.getElementById('latitude').textContent = vehicle.latitude;
-                document.getElementById('longitude').textContent = vehicle.longitude;
-                document.getElementById('date').textContent = date;
-                marker_3.setLatLng(latLongs);
-                polyline3.addLatLng(latLongs);
-            }
-          });
-
-            if (!boundsSet) {
-              const group = new L.featureGroup([marker_1, marker_2, marker_3]);
-              myMap.fitBounds(group.getBounds().pad(0.5));
-              boundsSet = true;
-            }
-
-        }
-
-        function splitIncomingData(data) {
-
-            const dataLines = data.split("\n")
-            const dataSplit = ["", "", ""]
-            for (const lines in dataLines) {
-                dataSplit[lines] = dataLines[lines].split(" ");
-            }
-            return dataSplit;
-
-        }
-        
-        /* Toggle between adding and removing the "responsive" class to topnav when the user clicks on the icon */
-        function myFunction() {
-          var x = document.getElementById("myTopnav");
-          if (x.className === "topnav") {
-            x.className += " responsive";
-          } else {
-            x.className = "topnav";
-          }
-        }
-    </script>
-    
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+  <script src="../js/map.js"></script>
+  <script src="../js/liveMap.js"></script>
+  
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 </body>
 </html>
