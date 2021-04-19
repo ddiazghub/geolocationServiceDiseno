@@ -1,4 +1,27 @@
+var sliderControl = null;
+let boundsSet = false;
+
+let setPopups = false;
+let tSelection = 0;
+var timeForm = document.getElementById("form");
+var slider = document.getElementById("myRange");
+let sTimeInput = document.getElementById("startTime");
+let eTimeInput = document.getElementById("endTime");
+var startTime = sTimeInput.value;
+var endTime = eTimeInput.value;
+var sliderOutput = slider.value;
+let vehicle;
+let length;
+let dateSelection;
+let dateStart;
+let dateEnd;
+var taxis = document.getElementsByName("taxi");
+let selectedTaxi;
+let initialTimeStamp = 0;
+let endingTimeStamp = 0;
 let active_polyline = L.featureGroup().addTo(myMap);
+
+
 
 $('#vehicleSelect button').on('click', function() {
   var thisBtn = $(this);
