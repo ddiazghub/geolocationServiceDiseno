@@ -33,12 +33,40 @@ var taxi3Icon = new L.Icon({
     shadowSize: [41, 41],
 });
 
+var startIcon = new L.Icon({
+    iconUrl: "../static/start.png",
+    shadowUrl: "https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png",
+    iconSize: [41, 41],
+    iconAnchor: [12, 41],
+    popupAnchor: [1, -34],
+    shadowSize: [41, 41],
+});
 
-const marker_1 = L.marker([0, 0], {icon: taxi1Icon}).addTo(myMap);
-const marker_2 = L.marker([0, 0], {icon: taxi2Icon}).addTo(myMap);
-const marker_3 = L.marker([0, 0], {icon: taxi3Icon}).addTo(myMap);
+const finishIcon = new L.Icon({
+    iconUrl: "../static/finish.png",
+    shadowUrl: "https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png",
+    iconSize: [53, 40],
+    iconAnchor: [12, 41],
+    popupAnchor: [1, -34],
+    shadowSize: [41, 41],
+});
 
+let marker_1;
+let marker_2;
+let marker_3;
 
 var polyline1 = L.polyline([]).addTo(myMap);
 var polyline2 = L.polyline([], {color: 'red'}).addTo(myMap);
 var polyline3 = L.polyline([], {color: '#000'}).addTo(myMap);
+
+function startMarkers() {
+    if (sw) {
+        marker_1 = L.marker([0, 0], {icon: taxi1Icon}).addTo(myMap);
+        marker_2 = L.marker([0, 0], {icon: taxi2Icon}).addTo(myMap);
+        marker_3 = L.marker([0, 0], {icon: taxi3Icon}).addTo(myMap);
+    } else {
+        marker_1 = L.marker([0, 0], { icon: startIcon }).addTo(myMap);
+        marker_2 = L.marker([0, 0], { icon: taxi1Icon }).addTo(myMap);
+        marker_3 = L.marker([0, 0], { icon: finishIcon }).addTo(myMap);
+    }
+}

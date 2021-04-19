@@ -21,7 +21,8 @@ let initialTimeStamp = 0;
 let endingTimeStamp = 0;
 let active_polyline = L.featureGroup().addTo(myMap);
 
-
+let sw = false;
+startMarkers();
 
 $('#vehicleSelect button').on('click', function() {
   var thisBtn = $(this);
