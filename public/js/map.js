@@ -52,8 +52,10 @@ const finishIcon = new L.Icon({
 });
 
 let marker_1;
-let marker_2;
 let marker_3;
+let markers = [[0, 0, 0], [0, 0, 0], [0, 0, 0]];
+let markersGroup = L.featureGroup().addTo(myMap);
+
 
 var polyline1 = L.polyline([]).addTo(myMap);
 var polyline2 = L.polyline([], {color: 'red'}).addTo(myMap);
@@ -65,8 +67,18 @@ function startMarkers() {
         marker_2 = L.marker([0, 0], {icon: taxi2Icon}).addTo(myMap);
         marker_3 = L.marker([0, 0], {icon: taxi3Icon}).addTo(myMap);
     } else {
-        marker_1 = L.marker([0, 0], { icon: startIcon }).addTo(myMap);
-        marker_2 = L.marker([0, 0], { icon: taxi1Icon }).addTo(myMap);
-        marker_3 = L.marker([0, 0], { icon: finishIcon }).addTo(myMap);
+        markers[0][0] = L.marker([0, 0], { icon: startIcon }).addTo(myMap);
+        markers[0][1] = L.marker([0, 0], { icon: taxi1Icon }).addTo(markersGroup);
+        markers[0][2] = L.marker([0, 0], { icon: finishIcon }).addTo(myMap);
+
+        markers[1][0] = L.marker([0, 0], { icon: startIcon }).addTo(myMap);
+        markers[1][1] = L.marker([0, 0], { icon: taxi2Icon }).addTo(markersGroup);
+        markers[1][2] = L.marker([0, 0], { icon: finishIcon }).addTo(myMap);
+
+        markers[2][0] = L.marker([0, 0], { icon: startIcon }).addTo(myMap);
+        markers[2][1] = L.marker([0, 0], { icon: taxi3Icon }).addTo(markersGroup);
+        markers[2][2] = L.marker([0, 0], { icon: finishIcon }).addTo(myMap);
+
+        // Max index = 8
     }
 }

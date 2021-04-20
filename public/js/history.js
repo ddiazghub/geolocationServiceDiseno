@@ -1,72 +1,50 @@
 var sliderControl = null;
 let boundsSet = false;
 
-let setPopups = false;
-let tSelection = 0;
-var timeForm = document.getElementById("form");
-var slider = document.getElementById("myRange");
+let tSelections = [0, 0, 0];
+let dates = [{start: 0, selection: 0, end: 0}, {start: 0, selection: 0, end: 0}, {start: 0, selection: 0, end: 0}];
+let vehicles = [0, 0, 0];
+let lengths = [0, 0, 0];
+let polylines = [0, 0, 0];
+const colors = ['red', 'blue', '#000']
+const licensePlates = ["EEE-070", "ABC-425", "BTE-425"]
+
+let vehicleSelect = document.querySelectorAll('[type="checkbox"]');
+let timeForm = document.getElementById("form");
+let sliders = [document.getElementById("myRange"), document.getElementById("myRange2"), document.getElementById("myRange3")];
 let sTimeInput = document.getElementById("startTime");
 let eTimeInput = document.getElementById("endTime");
+
 var startTime = sTimeInput.value;
 var endTime = eTimeInput.value;
-var sliderOutput = slider.value;
-let vehicle;
-let length;
-let dateSelection;
-let dateStart;
-let dateEnd;
+let sliderOutputs = [0, 0, 0];
+
 var taxis = document.getElementsByName("taxi");
-let selectedTaxi;
+let selectedTaxis = ["efee70", "487a8d", "b7ea25"];
+let registeredTaxis = ["efee70", "487a8d", "b7ea25"];
 let initialTimeStamp = 0;
 let endingTimeStamp = 0;
-let active_polyline = L.featureGroup().addTo(myMap);
+let active_polylines = new L.featureGroup().addTo(myMap);
+const sw = false;
 
-let sw = false;
 startMarkers();
 
-$('#vehicleSelect button').on('click', function() {
-  var thisBtn = $(this);
-  
-  thisBtn.addClass('active').siblings().removeClass('active');
-  var btnText = thisBtn.text();
-  selectedTaxi = thisBtn.val();
-  console.log(btnText + ' - ' + selectedTaxi);
-
-});
-
-// You can use this to set default value
-// It will fire above click event which will do the updates for you
-$('#vehicleSelect button[value="efee70"]').click();
-
 async function getData() {
-  console.log(initialTimeStamp);
-  console.log(endingTimeStamp);
-  const url = `http://34.221.26.86:50001/vehicles/${selectedTaxi}/${initialTimeStamp}/${endingTimeStamp}`;
-  console.log(url);
-  const response = await fetch(url);
-  const jsonData = await response.json();
-  vehicle = jsonData;
-  length = Object.keys(vehicle).length;
-  slider.max = length - 1;
-  slider.value = 0;
-  console.log(vehicle);
-}
+  registeredTaxis.forEach(async (taxi) => {
 
-slider.oninput = function() {
-  sliderOutput = this.value;
+    let index = registeredTaxis.indexOf(taxi);
+    let url = `http://34.221.26.86:50001/vehicles/${taxi}/${initialTimeStamp}/${endingTimeStamp}`;
 
-  tSelection = vehicle[sliderOutput].tstamp * 1000;
-  dateSelection = new Date(tSelection);
-  
+    console.log(url);
 
-  marker_2.setLatLng([vehicle[sliderOutput].latitude, vehicle[sliderOutput].longitude]);
-  marker_2.bindPopup("Vehiculo " + dateSelection.getDate()+
-    "/"+(dateSelection.getMonth()+1)+
-    "/"+dateSelection.getFullYear()+
-    " "+dateSelection.getHours()+
-    ":"+dateSelection.getMinutes()+
-    ":"+dateSelection.getSeconds(), {closeOnClick: false, autoPan:false}).openPopup();
+    let response = await fetch(url);
+    let jsonData = await response.json();
 
+    vehicles[index] = await jsonData;
+    lengths[index] = Object.keys(await jsonData).length
+    sliders[index].max = await jsonData.length - 1;
+    sliders[index].value = 0;
+  });
 }
 
 sTimeInput.addEventListener("change", function () {
@@ -82,70 +60,140 @@ eTimeInput.addEventListener("change", function () {
 document.getElementById("newDateTime").addEventListener("click", async function () {
   startTime = sTimeInput.value;
   endTime = eTimeInput.value;
-  console.log(startTime);
-  console.log(endTime);
   var dateEnteredStart = new Date(startTime);
   var dateEnteredEnd = new Date(endTime);
-  console.log(dateEnteredStart);
-  console.log(dateEnteredEnd);
   initialTimeStamp = dateEnteredStart.getTime() / 1000;
   endingTimeStamp = dateEnteredEnd.getTime() / 1000;
-  setPopups = true;
+
   await getData();
 
+  console.log(vehicles);
+  console.log(vehicles[0]);
+  console.log(vehicles[1]);
+  console.log(vehicles[2]);
+  updateSliders();
+  updatePolylines();
+  setAllMarkers();
+  closePopups();
+});
 
-  sliderOutput = slider.value;
+[].forEach.call(vehicleSelect, function (element) {
+    element.addEventListener("change", function(){
+        if (this.checked) {
+            selectedTaxis.push(this.value);
+        } else {
+            var index = selectedTaxis.indexOf(this.value);
+            if (index > -1) {
+                selectedTaxis.splice(index, 1);
+            }
+        }
+        console.log(selectedTaxis);
+        updatePolylines();
+        setAllMarkers();
+        closePopups();
+    });
+});
 
-  let latLongs = [];
+sliders.forEach(slider => {
+  slider.oninput = function() {
+    let index = sliders.indexOf(slider);
+    updateTimeDataFromSliders();
+    updateMarker(vehicles[index], "selection", true);
+  }
+});
 
-  tSelection = vehicle[0].tstamp * 1000;
-  dateSelection = new Date(tSelection);
-  dateStart = new Date(vehicle[0].tstamp * 1000);
-  dateEnd = new Date(vehicle[length - 1].tstamp * 1000);
-  
-  vehicle.forEach(element => {
-      latLongs.push([element.latitude, element.longitude]);
+function updateSliders() {
+  sliders.forEach(slider => {
+    let index = sliders.indexOf(slider);
+    if (lengths[index] < 1) {
+      alert("El vehículo " + licensePlates[index] + " no tiene ubicaciones registradas en el intervalo.");
+      return;
+    }
+    sliderOutputs[index] = slider.value;
+    tSelections[index] = vehicles[index][0].tstamp * 1000;
+    dates[index].start = new Date(tSelections[index]);
+    dates[index].end = new Date(tSelections[index]);
+    dates[index].selection = new Date(vehicles[index][lengths[index] - 1].tstamp * 1000);
   });
+};
 
-  active_polyline.clearLayers();
-  var polyline = L.polyline(latLongs, {color: 'red'}).addTo(active_polyline);
+function updateTimeDataFromSliders() {
+  sliders.forEach(slider => {
+    let index = sliders.indexOf(slider);
+    if (lengths[index] < 1) return;
+    sliderOutputs[index] = slider.value;
+    tSelections[index] = vehicles[index][slider.value].tstamp * 1000;
+    dates[index].selection = new Date(tSelections[index]);
+  });
+};
 
+function updatePolylines() {
+  let latLongs = [[], [], []];
+  active_polylines.clearLayers();
+  vehicles.forEach(vehicle => {
+    let index = vehicles.indexOf(vehicle);
+    if (lengths[index] < 1) return;
+    if (!selectedTaxis.includes(registeredTaxis[vehicles.indexOf(vehicle)])) return;
+    vehicle.forEach(element => {
+      latLongs[index].push([element.latitude, element.longitude]);
+    })
+    polylines[index] = new L.polyline(latLongs[index], {color: colors[index]}).addTo(active_polylines);
+  });
+}
 
-  switch (selectedTaxi) {
-    case "efee70":
-      marker_2.setIcon(taxi1Icon);
+function updateMarker(vehicle, dateType, close) {
+  let index = vehicles.indexOf(vehicle);
+
+  let mIndex = 0;
+  let vIndex = 0;
+  let string = "";
+
+  switch (dateType) {
+    case "start":
+      mIndex = 0;
+      vIndex = 0;
+      string = "Inicio ";
       break;
-    case "487a8d":
-      marker_2.setIcon(taxi2Icon);
+    case "selection":
+      mIndex = 1;
+      vIndex = sliderOutputs[index];
+      string = "Vehiculo ";
       break;
-    case "b7ea25":
-      marker_2.setIcon(taxi3Icon);
+    case "end":
+      mIndex = 2;
+      vIndex = lengths[index] - 1;
+      string = "Fin ";
+      break;
   }
 
-  $(".leaflet-popup-close-button").each(function (index) {
-      this.click();
+  if (!selectedTaxis.includes(registeredTaxis[vehicles.indexOf(vehicle)]) || (lengths[index] < 1)) {
+    markers[index][mIndex].setLatLng([0, 0]);
+    return;
+  };
+
+  console.log(index);
+  console.log(vIndex);
+  console.log(sliderOutputs);
+  console.log(vehicle[vIndex]);
+  markers[index][mIndex].setLatLng([vehicles[index][vIndex].latitude, vehicles[index][vIndex].longitude]);
+  markers[index][mIndex].bindPopup(string + dates[index][dateType].getDate()+
+    "/"+(dates[index][dateType].getMonth()+1)+
+    "/"+dates[index][dateType].getFullYear()+
+    " "+dates[index][dateType].getHours()+
+    ":"+dates[index][dateType].getMinutes()+
+    ":"+dates[index][dateType].getSeconds(), {closeOnClick: false, autoPan:false, autoClose: close}).openPopup();
+};
+
+function setAllMarkers() {
+  vehicles.forEach(vehicle => {
+    updateMarker(vehicle, "start", false);
+    updateMarker(vehicle, "selection", true);
+    updateMarker(vehicle, "end", false);
   });
+};
 
-  marker_1.setLatLng([vehicle[0].latitude, vehicle[0].longitude]);
-  marker_1.bindPopup("Inicio " + dateStart.getDate()+
-    "/"+(dateStart.getMonth()+1)+
-    "/"+dateStart.getFullYear()+
-    " "+dateStart.getHours()+
-    ":"+dateStart.getMinutes()+
-    ":"+dateStart.getSeconds(), {closeOnClick: false, autoPan:false, autoClose: false}).openPopup();
-  marker_3.setLatLng([vehicle[length - 1].latitude, vehicle[length - 1].longitude]);
-  marker_3.bindPopup("Fin " + dateEnd.getDate()+
-    "/"+(dateEnd.getMonth()+1)+
-    "/"+dateEnd.getFullYear()+
-    " "+dateEnd.getHours()+
-    ":"+dateEnd.getMinutes()+
-    ":"+dateEnd.getSeconds(), {closeOnClick: false, autoPan:false, autoClose: false}).openPopup();
-
-  marker_2.setLatLng([vehicle[0].latitude, vehicle[sliderOutput].longitude]);
-  marker_2.bindPopup("Vehiculo " + dateSelection.getDate()+
-    "/"+(dateSelection.getMonth()+1)+
-    "/"+dateSelection.getFullYear()+
-    " "+dateSelection.getHours()+
-    ":"+dateSelection.getMinutes()+
-    ":"+dateSelection.getSeconds(), {closeOnClick: false, autoPan:false}).openPopup();
-});
+function closePopups() {
+  $(".leaflet-popup-close-button").each(function (index) {
+    this.click();
+  });
+}
