@@ -5,15 +5,17 @@ async function getData() {
 
     console.log(url);
 
-    let response = await fetch(url);
-    let jsonData = await response.json();
-
-    vehicles.dbData[index] = await jsonData;
-    vehicles.lengths[index] = Object.keys(await jsonData).length;
-    vehicles.sliders[index].max = (await jsonData.length) - 1;
+    // let response = await fetch(url);
+    // let jsonData = await response.json().;
+    
+    let [jsonData] = await Promise.all([fetch(url).then((response) => response.json())]);
+    vehicles.dbData[index] = jsonData;
+    vehicles.lengths[index] = Object.keys(jsonData).length;
+    vehicles.sliders[index].max = (jsonData.length) - 1;
     vehicles.sliders[index].value = 0;
-  });
-}
+    });
+};
+
 
 function updateSliders() {
   vehicles.sliders.forEach((slider) => {
@@ -95,10 +97,6 @@ function updateMarker(vehicle, dateType, close) {
     return;
   }
 
-  console.log(index);
-  console.log(vIndex);
-  console.log(vehicles.sliderOutputs);
-  console.log(vehicle[vIndex]);
   markers[index][mIndex].setLatLng([
     vehicles.dbData[index][vIndex].latitude,
     vehicles.dbData[index][vIndex].longitude,

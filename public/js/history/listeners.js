@@ -9,21 +9,23 @@ eTimeInput.addEventListener("change", function () {
 });
 
 update.addEventListener("click", async function () {
-    startTime = sTimeInput.value;
-    endTime = eTimeInput.value;
-    var dateEnteredStart = new Date(startTime);
-    var dateEnteredEnd = new Date(endTime);
-    initialTimeStamp = dateEnteredStart.getTime() / 1000;
-    endingTimeStamp = dateEnteredEnd.getTime() / 1000;
+  startTime = sTimeInput.value;
+  endTime = eTimeInput.value;
+  var dateEnteredStart = new Date(startTime);
+  var dateEnteredEnd = new Date(endTime);
+  initialTimeStamp = dateEnteredStart.getTime() / 1000;
+  endingTimeStamp = dateEnteredEnd.getTime() / 1000;
 
-    await getData().then(() => {
-      console.log(vehicles.dbData)
-      updateSliders();
-      updatePolylines();
-      closePopups();
-      setAllMarkers();
-    });
-  });
+  await getData()
+});
+
+updateMap.addEventListener("click", function () {
+  console.log(vehicles.dbData);
+  updateSliders();
+  updatePolylines();
+  closePopups();
+  setAllMarkers();
+});
 
 [].forEach.call(vehicleSelect, function (element) {
   element.addEventListener("change", function () {

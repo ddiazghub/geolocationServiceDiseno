@@ -51,6 +51,12 @@ p {
     line-height: 1.5rem
 }
 
+.check {
+    width:200px;
+    height: 26px;
+    margin-left: 15px;
+}
+
 label.check {
     cursor: pointer
 }
@@ -64,7 +70,7 @@ label.check input {
 }
 
 label.check span {
-    padding: 7px 14px;
+    padding: 0px 7px;
     border: 2px solid #8f37aa;
     display: inline-block;
     color: #8f37aa;
