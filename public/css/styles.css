@@ -1,9 +1,9 @@
 @import url("//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-theme.min.css");
-#mapid { height: 550px; width: 100%;}
+#mapid { height: 670px; width: 100%;}
 p { font-size: 20px; }
 table { width: 100%; }
 #time-ranges { position: absolute;
-    top: 560px;
+    top: 590px;
     right: 2px;
     z-index: 1000;
     padding: 1em;
