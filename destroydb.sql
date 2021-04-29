@@ -1,0 +1,4 @@
+DROP TABLE vehicle;
+DROP TABLE efee70;
+DROP TABLE "487a8d";
+DROP TABLE b7ea25;
