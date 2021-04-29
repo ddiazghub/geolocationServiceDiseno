@@ -25,7 +25,7 @@ function updateMarkersAndText(data) {
         case "efee70":
             document.getElementById('lat').innerHTML = vehicle.latitude;
             document.getElementById('lon').innerHTML = vehicle.longitude;
-            document.getElementById('gas').innerHTML = vehicle.gasolineLevel;
+            document.getElementById('gas').innerHTML = vehicle.gasolinelevel;
             document.getElementById('fec').innerHTML = date;
             marker_1.setLatLng(latLongs);
             polyline1.addLatLng(latLongs);
@@ -34,7 +34,7 @@ function updateMarkersAndText(data) {
         case "487a8d":
             document.getElementById('latitud').innerHTML = vehicle.latitude;
             document.getElementById('longitud').innerHTML = vehicle.longitude;
-            document.getElementById('gasolina').innerHTML = vehicle.gasolineLevel;
+            document.getElementById('gasolina').innerHTML = vehicle.gasolinelevel;
             document.getElementById('fecha').innerHTML = date;
             marker_2.setLatLng(latLongs);
             polyline2.addLatLng(latLongs);
@@ -43,7 +43,7 @@ function updateMarkersAndText(data) {
         case "b7ea25":
             document.getElementById('latitude').textContent = vehicle.latitude;
             document.getElementById('longitude').textContent = vehicle.longitude;
-            document.getElementById('gasoline').innerHTML = vehicle.gasolineLevel;
+            document.getElementById('gasoline').innerHTML = vehicle.gasolinelevel;
             document.getElementById('date').textContent = date;
             marker_3.setLatLng(latLongs);
             polyline3.addLatLng(latLongs);
