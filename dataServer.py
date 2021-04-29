@@ -30,9 +30,9 @@ def start():
             messageList = receiveData(UDPSocket)
 
             # Queries to update database with the received data are performed.
-            SQL = "UPDATE vehicle SET latitude = %(latitude)s, longitude = %(longitude)s, tstamp = %(tstamp)s, gasolineLevel = %(gasolineLevel)s WHERE id = %(id)s;"
-            dbcursor.execute(SQL, {'id':messageList[0], 'latitude':messageList[1], 'longitude':messageList[2], 'tstamp':messageList[3], 'gasolineLevel':messageList[4]})
-            dbcursor.execute(sql.SQL("INSERT INTO {} (tstamp, latitude, longitude, gasolineLevel) values (%s, %s, %s, %s);").format(sql.Identifier(messageList[0])),[messageList[3], messageList[1], messageList[2], messageList[4]])
+            SQL = "UPDATE vehicle SET latitude = %(latitude)s, longitude = %(longitude)s, tstamp = %(tstamp)s, gasolinelevel = %(gasolinelevel)s WHERE id = %(id)s;"
+            dbcursor.execute(SQL, {'id':messageList[0], 'latitude':messageList[1], 'longitude':messageList[2], 'tstamp':messageList[3], 'gasolinelevel':messageList[4]})
+            dbcursor.execute(sql.SQL("INSERT INTO {} (tstamp, latitude, longitude, gasolinelevel) values (%s, %s, %s, %s);").format(sql.Identifier(messageList[0])),[messageList[3], messageList[1], messageList[2], messageList[4]])
             dbconnection.commit()
 
     # If something stops the thread the user can restart it or stop the program.
@@ -65,7 +65,7 @@ def countdown(seconds):
     for s in range(seconds):
         t = 5 - s
         delete_last_line()
-        print("El servidor se iniciará en " + str(server) + ":" + str(port) + " en " + str(t) + " segundos...")
+        print("Server starting at address " + str(server) + ", port: " + str(port) + " in " + str(t) + "...")
         time.sleep(1)
 
 # This function starts the local server and start the connection to the database server.
