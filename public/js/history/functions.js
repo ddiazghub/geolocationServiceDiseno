@@ -122,9 +122,9 @@ function updateMarker(vehicle, dateType, close) {
 
 function setAllMarkers() {
   vehicles.dbData.forEach((vehicle) => {
-    updateMarker(vehicle, "start", false);
+    updateMarker(vehicle, "start", true);
     updateMarker(vehicle, "selection", true);
-    updateMarker(vehicle, "end", false);
+    updateMarker(vehicle, "end", true);
   });
 }
 
