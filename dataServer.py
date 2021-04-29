@@ -65,7 +65,7 @@ def countdown(seconds):
     for s in range(seconds):
         t = 5 - s
         delete_last_line()
-        print("Server starting at address " + str(server) + ", port: " + str(port) + " in " + str(t) + "...")
+        print("Server starting at " + str(server) + ": " + str(port) + " in " + str(t) + " seconds...")
         time.sleep(1)
 
 # This function starts the local server and start the connection to the database server.
