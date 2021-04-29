@@ -3,7 +3,7 @@ create table if not exists vehicle (
     latitude float not null,
     longitude float not null,
     tstamp int not null,
-	gasoline smallint
+	gasolineLevel smallint
 );
 
 create table if not exists efee70 (
