@@ -18,7 +18,7 @@ print("\n")
 
 def start():
     delete_last_line()
-    print("El servidor ha iniciado.")
+    print("The server has successfully started.")
 
     # Local socket and database onnection are initiated.
     [UDPSocket, dbconnection, dbcursor] = startConnections(address)
@@ -91,7 +91,7 @@ def receiveData(UDPSocket):
     messageList = [vehicleID, latitude, longitude, timestamp, gasolineLevel]
 
     print("\nPacket received from " + incomingAddress[0] + ":" + str(incomingAddress[1]) + ":\n")
-    print("ID: " + messageList[0] + ", Latitude: " + str(messageList[1]) + ", Longitude: " + str(messageList[2]) + ", Date: " + dateAndTime[0] + ", Time: " + dateAndTime[1] + ", Gasoline Level: " + messageList[4] + "%.")
+    print("ID: " + messageList[0] + ", Latitude: " + str(messageList[1]) + ", Longitude: " + str(messageList[2]) + ", Date: " + dateAndTime[0] + ", Time: " + dateAndTime[1] + ", Gasoline Level: " + str(messageList[4]) + "%.")
     return messageList
 
 # 5 second countdown and call to start method for initializing server.
