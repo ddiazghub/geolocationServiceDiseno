@@ -1,7 +1,7 @@
 async function getData() {
   vehicles.ids.forEach(async (taxi) => {
     let index = vehicles.ids.indexOf(taxi);
-    let url = `http://34.221.26.86:50001/vehicles/${taxi}/${initialTimeStamp}/${endingTimeStamp}`;
+    let url = `http://${window.location.hostname}:50001/vehicles/${taxi}/${initialTimeStamp}/${endingTimeStamp}`;
 
     console.log(url);
 

@@ -1,7 +1,7 @@
 
 async function getData() {
 
-    const response = await fetch('http://34.221.26.86:50001/vehicles/');
+    const response = await fetch(`http://${window.location.hostname}:50001/vehicles/`);
     const jsonData = await response.json();
     
     vehicles = jsonData;
