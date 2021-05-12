@@ -98,9 +98,9 @@ function updateTableData(vehicle, dateType) {
   }
 
     table.rows[index * 3 + tIndex + 1].cells.namedItem("latitude").innerHTML = vehicles.dbData[index][vIndex].latitude;
-    table.rows[index * 3 + tIndex + 1].cells.namedItem("latitude").innerHTML = vehicles.dbData[index][vIndex].longitude;
-    table.rows[index * 3 + tIndex + 1].cells.namedItem("latitude").innerHTML = `${vehicles.dbData[index][vIndex].gasolinelevel}%`;
-    table.rows[index * 3 + tIndex + 1].cells.namedItem("latitude").innerHTML = string +
+    table.rows[index * 3 + tIndex + 1].cells.namedItem("longitude").innerHTML = vehicles.dbData[index][vIndex].longitude;
+    table.rows[index * 3 + tIndex + 1].cells.namedItem("gasoline").innerHTML = `${vehicles.dbData[index][vIndex].gasolinelevel}%`;
+    table.rows[index * 3 + tIndex + 1].cells.namedItem("dateAndTime").innerHTML = string +
     vehicles.dates[index][dateType].getDate() +
     "/" +
     (vehicles.dates[index][dateType].getMonth() + 1) +
