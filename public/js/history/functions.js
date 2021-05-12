@@ -88,7 +88,7 @@ function updateTableData(vehicle, dateType) {
 
     document.getElementById('myTable').rows[index * 3 + 1 + tIndex].cells[2].innerHTML = vehicles.dbData[index][vIndex].latitude;
     document.getElementById('myTable').rows[index * 3 + 1 + tIndex].cells[3].innerHTML = vehicles.dbData[index][vIndex].longitude;
-    document.getElementById('myTable').rows[index * 3 + 1 + tIndex].cells[4].innerHTML = `${vehicles.dbData[index][vIndex]}%`;
+    document.getElementById('myTable').rows[index * 3 + 1 + tIndex].cells[4].innerHTML = `${vehicles.dbData[index][vIndex].gasolineLevel}%`;
     document.getElementById('myTable').rows[index * 3 + 1 + tIndex].cells[5].innerHTMLL = string +
     vehicles.dates[index][dateType].getDate() +
     "/" +
