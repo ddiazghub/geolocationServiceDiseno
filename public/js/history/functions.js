@@ -86,10 +86,10 @@ function updateTableData(vehicle, dateType) {
       break;
   }
 
-    document.getElementById('myTable').rows[index * 3 + tIndex].cells[2].innerHTML = vehicles.dbData[index][vIndex].latitude;
-    document.getElementById('myTable').rows[index * 3 + tIndex].cells[3].innerHTML = vehicles.dbData[index][vIndex].longitude;
-    document.getElementById('myTable').rows[index * 3 + tIndex].cells[4].innerHTML = `${vehicles.dbData[index][vIndex].gasolinelevel}%`;
-    document.getElementById('myTable').rows[index * 3 + tIndex].cells[5].innerHTMLL = vehicles.dates[index][dateType];
+    document.getElementById('myTable').rows[index * 3 + tIndex + 1].cells[2].innerHTML = vehicles.dbData[index][vIndex].latitude;
+    document.getElementById('myTable').rows[index * 3 + tIndex + 1].cells[3].innerHTML = vehicles.dbData[index][vIndex].longitude;
+    document.getElementById('myTable').rows[index * 3 + tIndex + 1].cells[4].innerHTML = `${vehicles.dbData[index][vIndex].gasolinelevel}%`;
+    document.getElementById('myTable').rows[index * 3 + tIndex + 1].cells[5].innerHTML = vehicles.dates[index][dateType];
 
 }
 
