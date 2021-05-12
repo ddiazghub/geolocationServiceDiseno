@@ -74,17 +74,14 @@ function updateTableData(vehicle, dateType) {
   switch (dateType) {
     case "start":
       tIndex = 0;
-      tIndex2 = 0;
       vIndex = 0;
       break;
     case "selection":
-      tIndex = 1;
       tIndex = 1;
       vIndex = vehicles.sliderOutputs[index];
       break;
     case "end":
       tIndex = 2;
-      tIndex = 1;
       vIndex = vehicles.lengths[index] - 1;
       break;
   }
@@ -93,17 +90,17 @@ function updateTableData(vehicle, dateType) {
     !vehicles.selectedTaxis.includes(vehicles.ids[vehicles.dbData.indexOf(vehicle)]) ||
     vehicles.lengths[index] < 1
   ) {
-    table.rows[index * 3 + tIndex + 1].cells[2 - tIndex2].innerHTML = "-";
-    table.rows[index * 3 + tIndex + 1].cells[3 - tIndex2].innerHTML = "-";
-    table.rows[index * 3 + tIndex + 1].cells[4 - tIndex2].innerHTML = "-";
-    table.rows[index * 3 + tIndex + 1].cells[5 - tIndex2].innerHTML = "-";
+    table.rows[index * 3 + tIndex + 1].cells.namedItem("latitude").innerHTML = "-";
+    table.rows[index * 3 + tIndex + 1].cells.namedItem("longitude").innerHTML = "-";
+    table.rows[index * 3 + tIndex + 1].cells.namedItem("gasoline").innerHTML = "-";
+    table.rows[index * 3 + tIndex + 1].cells.namedItem("dateAndTime").innerHTML = "-";
     return;
   }
 
-    table.rows[index * 3 + tIndex + 1].cells[2 - tIndex2].innerHTML = vehicles.dbData[index][vIndex].latitude;
-    table.rows[index * 3 + tIndex + 1].cells[3 - tIndex2].innerHTML = vehicles.dbData[index][vIndex].longitude;
-    table.rows[index * 3 + tIndex + 1].cells[4 - tIndex2].innerHTML = `${vehicles.dbData[index][vIndex].gasolinelevel}%`;
-    table.rows[index * 3 + tIndex + 1].cells[5 - tIndex2].innerHTML = string +
+    table.rows[index * 3 + tIndex + 1].cells.namedItem("latitude").innerHTML = vehicles.dbData[index][vIndex].latitude;
+    table.rows[index * 3 + tIndex + 1].cells.namedItem("latitude").innerHTML = vehicles.dbData[index][vIndex].longitude;
+    table.rows[index * 3 + tIndex + 1].cells.namedItem("latitude").innerHTML = `${vehicles.dbData[index][vIndex].gasolinelevel}%`;
+    table.rows[index * 3 + tIndex + 1].cells.namedItem("latitude").innerHTML = string +
     vehicles.dates[index][dateType].getDate() +
     "/" +
     (vehicles.dates[index][dateType].getMonth() + 1) +
