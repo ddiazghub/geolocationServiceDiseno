@@ -73,23 +73,37 @@ function updateTableData(vehicle, dateType) {
 
   switch (dateType) {
     case "start":
-      tIndex = 0
+      tIndex = 0;
+      tIndex2 = 0;
       vIndex = 0;
       break;
     case "selection":
+      tIndex = 1;
       tIndex = 1;
       vIndex = vehicles.sliderOutputs[index];
       break;
     case "end":
       tIndex = 2;
+      tIndex = 1;
       vIndex = vehicles.lengths[index] - 1;
       break;
   }
 
-    document.getElementById('myTable').rows[index * 3 + tIndex + 1].cells[2 - tIndex].innerHTML = vehicles.dbData[index][vIndex].latitude;
-    document.getElementById('myTable').rows[index * 3 + tIndex + 1].cells[3 - tIndex].innerHTML = vehicles.dbData[index][vIndex].longitude;
-    document.getElementById('myTable').rows[index * 3 + tIndex + 1].cells[4 - tIndex].innerHTML = `${vehicles.dbData[index][vIndex].gasolinelevel}%`;
-    document.getElementById('myTable').rows[index * 3 + tIndex + 1].cells[5 - tIndex].innerHTML = string +
+  if (
+    !vehicles.selectedTaxis.includes(vehicles.ids[vehicles.dbData.indexOf(vehicle)]) ||
+    vehicles.lengths[index] < 1
+  ) {
+    document.getElementById('myTable').rows[index * 3 + tIndex + 1].cells[2 - tIndex2].innerHTML = "-";
+    document.getElementById('myTable').rows[index * 3 + tIndex + 1].cells[3 - tIndex2].innerHTML = "-";
+    document.getElementById('myTable').rows[index * 3 + tIndex + 1].cells[4 - tIndex2].innerHTML = "-";
+    document.getElementById('myTable').rows[index * 3 + tIndex + 1].cells[5 - tIndex2].innerHTML = "-";
+    return;
+  }
+
+    document.getElementById('myTable').rows[index * 3 + tIndex + 1].cells[2 - tIndex2].innerHTML = vehicles.dbData[index][vIndex].latitude;
+    document.getElementById('myTable').rows[index * 3 + tIndex + 1].cells[3 - tIndex2].innerHTML = vehicles.dbData[index][vIndex].longitude;
+    document.getElementById('myTable').rows[index * 3 + tIndex + 1].cells[4 - tIndex2].innerHTML = `${vehicles.dbData[index][vIndex].gasolinelevel}%`;
+    document.getElementById('myTable').rows[index * 3 + tIndex + 1].cells[5 - tIndex2].innerHTML = string +
     vehicles.dates[index][dateType].getDate() +
     "/" +
     (vehicles.dates[index][dateType].getMonth() + 1) +
