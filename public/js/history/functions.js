@@ -93,17 +93,17 @@ function updateTableData(vehicle, dateType) {
     !vehicles.selectedTaxis.includes(vehicles.ids[vehicles.dbData.indexOf(vehicle)]) ||
     vehicles.lengths[index] < 1
   ) {
-    document.getElementById('myTable').rows[index * 3 + tIndex + 1].cells[2 - tIndex2].innerHTML = "-";
-    document.getElementById('myTable').rows[index * 3 + tIndex + 1].cells[3 - tIndex2].innerHTML = "-";
-    document.getElementById('myTable').rows[index * 3 + tIndex + 1].cells[4 - tIndex2].innerHTML = "-";
-    document.getElementById('myTable').rows[index * 3 + tIndex + 1].cells[5 - tIndex2].innerHTML = "-";
+    table.rows[index * 3 + tIndex + 1].cells[2 - tIndex2].innerHTML = "-";
+    table.rows[index * 3 + tIndex + 1].cells[3 - tIndex2].innerHTML = "-";
+    table.rows[index * 3 + tIndex + 1].cells[4 - tIndex2].innerHTML = "-";
+    table.rows[index * 3 + tIndex + 1].cells[5 - tIndex2].innerHTML = "-";
     return;
   }
 
-    document.getElementById('myTable').rows[index * 3 + tIndex + 1].cells[2 - tIndex2].innerHTML = vehicles.dbData[index][vIndex].latitude;
-    document.getElementById('myTable').rows[index * 3 + tIndex + 1].cells[3 - tIndex2].innerHTML = vehicles.dbData[index][vIndex].longitude;
-    document.getElementById('myTable').rows[index * 3 + tIndex + 1].cells[4 - tIndex2].innerHTML = `${vehicles.dbData[index][vIndex].gasolinelevel}%`;
-    document.getElementById('myTable').rows[index * 3 + tIndex + 1].cells[5 - tIndex2].innerHTML = string +
+    table.rows[index * 3 + tIndex + 1].cells[2 - tIndex2].innerHTML = vehicles.dbData[index][vIndex].latitude;
+    table.rows[index * 3 + tIndex + 1].cells[3 - tIndex2].innerHTML = vehicles.dbData[index][vIndex].longitude;
+    table.rows[index * 3 + tIndex + 1].cells[4 - tIndex2].innerHTML = `${vehicles.dbData[index][vIndex].gasolinelevel}%`;
+    table.rows[index * 3 + tIndex + 1].cells[5 - tIndex2].innerHTML = string +
     vehicles.dates[index][dateType].getDate() +
     "/" +
     (vehicles.dates[index][dateType].getMonth() + 1) +
