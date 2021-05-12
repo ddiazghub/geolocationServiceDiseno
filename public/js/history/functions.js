@@ -86,21 +86,10 @@ function updateTableData(vehicle, dateType) {
       break;
   }
 
-    document.getElementById('myTable').rows[index * 3 + 1 + tIndex].cells[2].innerHTML = vehicles.dbData[index][vIndex].latitude;
-    document.getElementById('myTable').rows[index * 3 + 1 + tIndex].cells[3].innerHTML = vehicles.dbData[index][vIndex].longitude;
-    document.getElementById('myTable').rows[index * 3 + 1 + tIndex].cells[4].innerHTML = `${vehicles.dbData[index][vIndex].gasolinelevel}%`;
-    document.getElementById('myTable').rows[index * 3 + 1 + tIndex].cells[5].innerHTMLL = string +
-    vehicles.dates[index][dateType].getDate() +
-    "/" +
-    (vehicles.dates[index][dateType].getMonth() + 1) +
-    "/" +
-    vehicles.dates[index][dateType].getFullYear() +
-    " " +
-    vehicles.dates[index][dateType].getHours() +
-    ":" +
-    vehicles.dates[index][dateType].getMinutes() +
-    ":" +
-    vehicles.dates[index][dateType].getSeconds();
+    document.getElementById('myTable').rows[index * 3 + tIndex].cells[2].innerHTML = vehicles.dbData[index][vIndex].latitude;
+    document.getElementById('myTable').rows[index * 3 + tIndex].cells[3].innerHTML = vehicles.dbData[index][vIndex].longitude;
+    document.getElementById('myTable').rows[index * 3 + tIndex].cells[4].innerHTML = `${vehicles.dbData[index][vIndex].gasolinelevel}%`;
+    document.getElementById('myTable').rows[index * 3 + tIndex].cells[5].innerHTMLL = vehicles.dates[index][dateType];
 
 }
 
