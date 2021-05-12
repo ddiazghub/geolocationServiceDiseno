@@ -49,5 +49,6 @@ vehicles.sliders.forEach((slider) => {
     let index = vehicles.sliders.indexOf(slider);
     updateTimeDataFromSliders();
     updateMarker(vehicles.dbData[index], "selection", true);
+    updateTableData(vehicles.dbData[index], "selection");
   };
 });

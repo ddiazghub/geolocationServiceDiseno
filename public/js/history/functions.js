@@ -64,6 +64,46 @@ function updatePolylines() {
   });
 }
 
+function updateTableData(vehicle, dateType) {
+  let index = vehicles.dbData.indexOf(vehicle);
+
+  let tIndex = 0;
+  let vIndex = 0;
+  let string = "";
+
+  switch (dateType) {
+    case "start":
+      tIndex = 0
+      vIndex = 0;
+      break;
+    case "selection":
+      tIndex = 1;
+      vIndex = vehicles.sliderOutputs[index];
+      break;
+    case "end":
+      tIndex = 2;
+      vIndex = vehicles.lengths[index] - 1;
+      break;
+  }
+
+    document.getElementById('myTable').rows[index * 3 + 1 + tIndex].cells[2].innerHTML = vehicles.dbData[index][vIndex].latitude;
+    document.getElementById('myTable').rows[index * 3 + 1 + tIndex].cells[3].innerHTML = vehicles.dbData[index][vIndex].longitude;
+    document.getElementById('myTable').rows[index * 3 + 1 + tIndex].cells[4].innerHTML = `${vehicles.dbData[index][vIndex]}%`;
+    document.getElementById('myTable').rows[index * 3 + 1 + tIndex].cells[5].innerHTMLL = string +
+    vehicles.dates[index][dateType].getDate() +
+    "/" +
+    (vehicles.dates[index][dateType].getMonth() + 1) +
+    "/" +
+    vehicles.dates[index][dateType].getFullYear() +
+    " " +
+    vehicles.dates[index][dateType].getHours() +
+    ":" +
+    vehicles.dates[index][dateType].getMinutes() +
+    ":" +
+    vehicles.dates[index][dateType].getSeconds();
+
+}
+
 function updateMarker(vehicle, dateType, close) {
   let index = vehicles.dbData.indexOf(vehicle);
 
@@ -123,8 +163,13 @@ function updateMarker(vehicle, dateType, close) {
 function setAllMarkers() {
   vehicles.dbData.forEach((vehicle) => {
     updateMarker(vehicle, "start", true);
+    updateTableData(vehicle, "start");
+
     updateMarker(vehicle, "selection", true);
+    updateTableData(vehicle, "selection");
+
     updateMarker(vehicle, "end", true);
+    updateTableData(vehicle, "end");
   });
 }
 

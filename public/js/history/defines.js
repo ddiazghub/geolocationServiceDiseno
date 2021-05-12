@@ -29,7 +29,7 @@ let sTimeInput = document.getElementById("startTime");
 let eTimeInput = document.getElementById("endTime");
 let update = document.getElementById("newDateTime");
 let updateMap = document.getElementById("updateMap");
-
+let table = document.getElementById('myTable');
 
 var startTime = sTimeInput.value;
 var endTime = eTimeInput.value;
