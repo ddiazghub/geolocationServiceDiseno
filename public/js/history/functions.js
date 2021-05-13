@@ -31,8 +31,8 @@ function updateSliders() {
     vehicles.sliderOutputs[index] = slider.value;
     vehicles.tSelections[index] = vehicles.dbData[index][0].tstamp * 1000;
     vehicles.dates[index].start = new Date(vehicles.tSelections[index]);
-    vehicles.dates[index].end = new Date(vehicles.tSelections[index]);
-    vehicles.dates[index].selection = new Date(
+    vehicles.dates[index].selection = new Date(vehicles.tSelections[index]);
+    vehicles.dates[index].end = new Date(
       vehicles.dbData[index][vehicles.lengths[index] - 1].tstamp * 1000
     );
   });
