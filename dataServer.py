@@ -30,9 +30,14 @@ def start():
             messageList = receiveData(UDPSocket)
 
             # Queries to update database with the received data are performed.
-            SQL = "UPDATE vehicle SET latitude = %(latitude)s, longitude = %(longitude)s, tstamp = %(tstamp)s, gasolinelevel = %(gasolinelevel)s WHERE id = %(id)s;"
-            dbcursor.execute(SQL, {'id':messageList[0], 'latitude':messageList[1], 'longitude':messageList[2], 'tstamp':messageList[3], 'gasolinelevel':messageList[4]})
-            dbcursor.execute(sql.SQL("INSERT INTO {} (tstamp, latitude, longitude, gasolinelevel) values (%s, %s, %s, %s);").format(sql.Identifier(messageList[0])),[messageList[3], messageList[1], messageList[2], messageList[4]])
+            if messageList[4] <= 100: 
+                SQL = "UPDATE vehicle SET latitude = %(latitude)s, longitude = %(longitude)s, tstamp = %(tstamp)s, gasolinelevel = %(gasolinelevel)s WHERE id = %(id)s;"
+                dbcursor.execute(SQL, {'id':messageList[0], 'latitude':messageList[1], 'longitude':messageList[2], 'tstamp':messageList[3], 'gasolinelevel':messageList[4]})
+                dbcursor.execute(sql.SQL("INSERT INTO {} (tstamp, latitude, longitude, gasolinelevel) values (%s, %s, %s, %s);").format(sql.Identifier(messageList[0])),[messageList[3], messageList[1], messageList[2], messageList[4]])
+            else:
+                SQL = "UPDATE vehicle SET latitude = %(latitude)s, longitude = %(longitude)s, tstamp = %(tstamp)s WHERE id = %(id)s;"
+                dbcursor.execute(SQL, {'id':messageList[0], 'latitude':messageList[1], 'longitude':messageList[2], 'tstamp':messageList[3]})
+                dbcursor.execute(sql.SQL("INSERT INTO {} (tstamp, latitude, longitude) values (%s, %s, %s);").format(sql.Identifier(messageList[0])),[messageList[3], messageList[1], messageList[2]])
             dbconnection.commit()
 
     # If something stops the thread the user can restart it or stop the program.
