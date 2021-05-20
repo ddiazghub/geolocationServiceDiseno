@@ -7,7 +7,7 @@
 }
 
 .jumbotron{
-    background-image: url('https://www.google.com/url?sa=i&url=https%3A%2F%2Funsplash.com%2Fs%2Fphotos%2Ftaxi&psig=AOvVaw008acflU3AMG181LMlqG2n&ust=1621617648648000&source=images&cd=vfe&ved=0CAIQjRxqFwoTCKCV6dPi2PACFQAAAAAdAAAAABAJ');
+    background-image: url('../Imágenes/taxi.jpg');
     height: 100vh;
     background-size: cover;
     background-position: center;
