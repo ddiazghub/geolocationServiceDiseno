@@ -10,7 +10,7 @@ let vehicles = {
     lengths: [0, 0, 0],
     polylines: [0, 0, 0],
     colors: ["red", "blue", "#000"],
-    licensePlates: ["EEE-070", "ABC-425", "BTE-425"],
+    licensePlates: ["EFE-070", "ABC-425", "BTE-425"],
     sliders: [
       document.getElementById("myRange"),
       document.getElementById("myRange2"),
